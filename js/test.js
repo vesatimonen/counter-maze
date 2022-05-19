@@ -112,6 +112,7 @@ gameBoard.addEventListener("touchend",   moveEnd);
 
 
 var gameBoardWidth = gameBoard.clientWidth;
+document.getElementById("debug_text").innerHTML = gameBoardWidth;
 
 function makeGrid(width, height) {
     for (i = 0; i < height; i++) {

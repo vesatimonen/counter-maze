@@ -5,11 +5,12 @@
 }
 
 img {
-  display: block;
-  margin-left: auto;
+  display:      block;
+  margin-left:  auto;
   margin-right: auto;
 }
 
+/*** Game screen ***/
 #game-screen {
     /* Prevent text selection*/
     -webkit-touch-callout: none; /* iOS Safari */
@@ -20,42 +21,67 @@ img {
               user-select: none;
 
     /* Default font */
-    font-family: Courier New, monospace;
+    font-family:        Courier New, monospace;
 
     /* Screen size */
-    width:          500px;
+    width:              min(480px, calc(100vw - 20px));
 
-    margin-left:    auto;
-    margin-right:   auto;
-    margin-top:     10px;
-    margin-bottom:  10px;
+    margin-left:        auto;
+    margin-right:       auto;
 
-    background-color: #B0DDFF; /* #92D2F2, #B0DDFF*/
+    background-color:   #B0DDFF; /* #92D2F2, #B0DDFF*/
 }
 
+/*
 @media screen and (max-width: 520px) {
     #game-screen {
-/*        width:          100vw; */
         width:          calc(100vw - 20px);
     }
 }
+*/
 
-#game-title {
-    font-size:          36px;
-    font-weight:        bold;
 
-    text-align:         center;
 
-    margin-bottom:      10px;
-}
-
-#game-instructions {
+/*** Game controls ***/
+#game-controls {
     margin-top:         10px;
 
-    font-size:          18px;
+    display: flex;
+}
+
+#game-controls:after {
+    content:            "";
+    display:            block;
+    clear:              both;
+}
+
+.button {
+    display:            block;
+
+    color:              #000000;
+    background:         #67BFEC;
+
+    border:             var(--border_style);
+    border-radius:      var(--border_radius);
+
+    /* Size */
+    width:              60px;
+    height:             30px;
+    line-height:        32px;
+
+    /* Text position */
+    font-size:          24px;
     text-align:         center;
 }
 
+.level {
+    font-size:          32px;
+    font-weight:        bold;
+
+    margin:             auto;
+}
+
+/*** Game board ***/
 #game-board {
     margin-top:         10px;
 
@@ -69,56 +95,21 @@ img {
     border-radius:      var(--border_radius);
 }
 
-#game-copyright {
-    font-size:          12px;
-    text-align:         center;
-}
-
-#game-controls {
-    margin-top:         20px;
-}
-
-#game-controls:after {
-    content:            "";
-    display:            block;
-    clear:              both;
-}
-
-.button {
-    display:            block;
-
-    color:              #fcfcfc;
-    background:         #67BFEC;
-
-    border:             var(--border_style);
-    border-radius:      var(--border_radius);
-
-    /* Size */
-    width:              160px;
-    height:             30px;
-    line-height:        32px;
-
-    /* Text position */
-    font-size:          24px;
-    text-align:         center;
-}
-
 .grid-row:after {
-    content: "";
-    display: block;
-    clear: both;
+    content:        "";
+    display:        block;
+    clear:          both;
 }
 
 .grid-cell {
-    --size:   54px;
+    --size:         54px;
 
     /* Cell size */
     width:          var(--size);
     height:         var(--size);
 
     /* Margins */
-    margin-right:   0px;
-    margin-bottom:  0px;
+    margin:         0;
 
     /* Position */
     float:          left;
@@ -126,9 +117,34 @@ img {
 
 .grid-image {
     /* Scale image always to fill whole div */
-    max-width:  100%;
-    max-height: 100%;
-    width:      100%;
-    height:     100%;
+    max-width:      100%;
+    max-height:     100%;
+    width:          100%;
+    height:         100%;
 }
 
+/*** Game copyright ***/
+#game-copyright {
+    margin-top:     1px;
+
+    font-size:      12px;
+    text-align:     center;
+}
+
+/*** Game title ***/
+#game-title {
+    margin-top:     10px;
+
+    font-size:      36px;
+    font-weight:    bold;
+
+    text-align:     center;
+}
+
+/*** Game instructions ***/
+#game-instructions {
+    margin-top:     10px;
+
+    font-size:      18px;
+    text-align:     center;
+}
