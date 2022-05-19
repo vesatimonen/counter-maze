@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="148"
+   height="148"
+   id="svg2"
+   version="1.1"
+   inkscape:version="1.0.1 (c497b03c, 2020-09-10)"
+   sodipodi:docname="Frame148.svg"
+   inkscape:export-filename="C:\OWN\Bacteria\Piece_without_shadow.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+  <defs
+     id="defs4">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 554.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 554.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 378.78739 : 1"
+       id="perspective10" />
+    <filter
+       id="filter5329"
+       inkscape:label="Inner Shadow"
+       inkscape:menu="Shadows and Glows"
+       inkscape:menu-tooltip="Adds a colorizable drop shadow inside"
+       color-interpolation-filters="sRGB">
+      <feGaussianBlur
+         stdDeviation="1"
+         id="feGaussianBlur5611"
+         result="result12"
+         in="SourceAlpha" />
+      <feOffset
+         id="feOffset5333"
+         dx="15.625"
+         dy="1"
+         result="result11"
+         in="result12" />
+      <feComposite
+         id="feComposite5335"
+         in2="SourceGraphic"
+         result="result6"
+         in="result11"
+         operator="out" />
+    </filter>
+    <filter
+       id="filter5399"
+       inkscape:label="Darken edges"
+       inkscape:menu="Shadows and Glows"
+       inkscape:menu-tooltip="Darken the edges with an inner blur"
+       color-interpolation-filters="sRGB">
+      <feGaussianBlur
+         id="feGaussianBlur5401"
+         stdDeviation="1"
+         result="result8" />
+      <feOffset
+         id="feOffset5403"
+         dx="2"
+         dy="2"
+         result="result11"
+         stdDeviation="1" />
+      <feComposite
+         id="feComposite5405"
+         in2="result11"
+         result="result6"
+         in="SourceGraphic"
+         operator="in" />
+      <feFlood
+         id="feFlood5407"
+         result="result10"
+         in="result6"
+         flood-opacity="1"
+         flood-color="rgb(255,255,255)" />
+      <feBlend
+         id="feBlend5409"
+         in2="result10"
+         mode="normal"
+         in="result6"
+         result="result12" />
+      <feComposite
+         id="feComposite5411"
+         in2="SourceGraphic"
+         result="fbSourceGraphic"
+         operator="in" />
+      <feColorMatrix
+         result="fbSourceGraphicAlpha"
+         in="fbSourceGraphic"
+         values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0"
+         id="feColorMatrix5413"
+         stdDeviation="1" />
+      <feGaussianBlur
+         id="feGaussianBlur5415"
+         stdDeviation="1"
+         result="result8"
+         in="fbSourceGraphic"
+         dy="2" />
+      <feOffset
+         id="feOffset5417"
+         dx="-2"
+         dy="-2"
+         result="result11" />
+      <feComposite
+         id="feComposite5419"
+         in2="result11"
+         result="result6"
+         in="fbSourceGraphic"
+         operator="in" />
+      <feFlood
+         id="feFlood5421"
+         result="result10"
+         in="result6"
+         flood-opacity="1"
+         flood-color="rgb(0,0,0)" />
+      <feBlend
+         id="feBlend5423"
+         in2="result10"
+         mode="normal"
+         in="result6"
+         result="result13" />
+      <feComposite
+         id="feComposite5425"
+         in2="fbSourceGraphic"
+         result="fbSourceGraphic"
+         operator="in" />
+      <feColorMatrix
+         result="fbSourceGraphicAlpha"
+         in="fbSourceGraphic"
+         values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0"
+         id="feColorMatrix5603" />
+      <feGaussianBlur
+         id="feGaussianBlur5605"
+         result="result6"
+         stdDeviation="1.5"
+         in="fbSourceGraphic" />
+      <feComposite
+         id="feComposite5607"
+         in2="result6"
+         operator="atop"
+         in="fbSourceGraphic"
+         result="result8" />
+      <feComposite
+         id="feComposite5609"
+         in2="fbSourceGraphicAlpha"
+         in="result8"
+         operator="atop"
+         result="result9" />
+    </filter>
+    <filter
+       id="filter5651"
+       inkscape:label="Shadow only">
+      <feGaussianBlur
+         stdDeviation="3"
+         id="feGaussianBlur5653"
+         in="SourceAlpha"
+         dy="4" />
+      <feOffset
+         dx="8"
+         dy="8"
+         id="feOffset5655"
+         result="result1" />
+      <feComposite
+         id="feComposite5657"
+         in2="result1"
+         in="SourceGraphic" />
+    </filter>
+    <filter
+       id="filter5651-3"
+       inkscape:label="Shadow only">
+      <feGaussianBlur
+         stdDeviation="3"
+         id="feGaussianBlur5653-8"
+         in="SourceAlpha"
+         dy="4" />
+      <feOffset
+         dx="8"
+         dy="8"
+         id="feOffset5655-0"
+         result="result1" />
+      <feComposite
+         id="feComposite5657-2"
+         in2="result1"
+         in="SourceGraphic" />
+    </filter>
+    <filter
+       id="filter5399-4"
+       inkscape:label="Darken edges"
+       inkscape:menu="Shadows and Glows"
+       inkscape:menu-tooltip="Darken the edges with an inner blur"
+       color-interpolation-filters="sRGB">
+      <feGaussianBlur
+         id="feGaussianBlur5401-8"
+         stdDeviation="1"
+         result="result8" />
+      <feOffset
+         id="feOffset5403-3"
+         dx="2"
+         dy="2"
+         result="result11"
+         stdDeviation="1" />
+      <feComposite
+         id="feComposite5405-9"
+         in2="result11"
+         result="result6"
+         in="SourceGraphic"
+         operator="in" />
+      <feFlood
+         id="feFlood5407-0"
+         result="result10"
+         in="result6"
+         flood-opacity="1"
+         flood-color="rgb(255,255,255)" />
+      <feBlend
+         id="feBlend5409-5"
+         in2="result10"
+         mode="normal"
+         in="result6"
+         result="result12" />
+      <feComposite
+         id="feComposite5411-2"
+         in2="SourceGraphic"
+         result="fbSourceGraphic"
+         operator="in" />
+      <feColorMatrix
+         result="fbSourceGraphicAlpha"
+         in="fbSourceGraphic"
+         values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0"
+         id="feColorMatrix5413-2"
+         stdDeviation="1" />
+      <feGaussianBlur
+         id="feGaussianBlur5415-7"
+         stdDeviation="1"
+         result="result8"
+         in="fbSourceGraphic"
+         dy="2" />
+      <feOffset
+         id="feOffset5417-3"
+         dx="-2"
+         dy="-2"
+         result="result11" />
+      <feComposite
+         id="feComposite5419-7"
+         in2="result11"
+         result="result6"
+         in="fbSourceGraphic"
+         operator="in" />
+      <feFlood
+         id="feFlood5421-9"
+         result="result10"
+         in="result6"
+         flood-opacity="1"
+         flood-color="rgb(0,0,0)" />
+      <feBlend
+         id="feBlend5423-0"
+         in2="result10"
+         mode="normal"
+         in="result6"
+         result="result13" />
+      <feComposite
+         id="feComposite5425-2"
+         in2="fbSourceGraphic"
+         result="fbSourceGraphic"
+         operator="in" />
+      <feColorMatrix
+         result="fbSourceGraphicAlpha"
+         in="fbSourceGraphic"
+         values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0"
+         id="feColorMatrix5603-3" />
+      <feGaussianBlur
+         id="feGaussianBlur5605-9"
+         result="result6"
+         stdDeviation="1.5"
+         in="fbSourceGraphic" />
+      <feComposite
+         id="feComposite5607-9"
+         in2="result6"
+         operator="atop"
+         in="fbSourceGraphic"
+         result="result8" />
+      <feComposite
+         id="feComposite5609-7"
+         in2="fbSourceGraphicAlpha"
+         in="result8"
+         operator="atop"
+         result="result9" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="3.4113124"
+     inkscape:cx="213.1389"
+     inkscape:cy="170.90377"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="3440"
+     inkscape:window-height="1395"
+     inkscape:window-x="0"
+     inkscape:window-y="23"
+     inkscape:window-maximized="1"
+     inkscape:document-rotation="0" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-932.36218)">
+    <rect
+       style="opacity:0.616471;fill:#32aae6;fill-opacity:1;stroke:#404040;stroke-width:1.0531;stroke-opacity:1;filter:url(#filter5651)"
+       id="rect2816"
+       width="117.9469"
+       height="117.9469"
+       x="15.026547"
+       y="947.38873"
+       rx="15"
+       ry="15"
+       inkscape:export-filename="C:\OWN\Bacteria\Piece.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:none;stroke:#404040;stroke-width:8.12175;stroke-miterlimit:0;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter5399)"
+       id="rect5241"
+       width="116.12487"
+       height="116.12486"
+       x="1.9375674"
+       y="934.29974"
+       rx="14.01507"
+       ry="14.01507"
+       transform="matrix(0.96823622,0,0,0.96815975,15.703567,45.80554)"
+       inkscape:export-filename="C:\OWN\Bacteria\Piece.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+  </g>
+</svg>

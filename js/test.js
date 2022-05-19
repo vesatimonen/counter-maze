@@ -131,8 +131,8 @@ function makeGrid(width, height) {
 
             /* Create image */
             let newImage = document.createElement("img");
-            newImage.src       = "images/" + Math.floor(Math.random() * 10) + "_shadow.svg";
-//            newImage.src = "images/" + Math.floor(Math.random() * 10) + "_shadow.png";
+//            newImage.src       = "images/" + Math.floor(Math.random() * 10) + "_shadow.svg";
+            newImage.src = "images/" + Math.floor(Math.random() * 10) + "_shadow.png";
             newImage.className = "grid-image";
             newImage.id        = "image-" + i + "-" + j;
             newCell.appendChild(newImage);
