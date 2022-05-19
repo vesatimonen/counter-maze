@@ -1,7 +1,10 @@
 /*****************************************************************************
- * Gameboard element
+ * Game board variables
  *****************************************************************************/
-const gameBoard  = document.getElementById("game-board");
+const gameBoard      = document.getElementById("game-board");
+var   gameBoardWidth = gameBoard.clientWidth;
+var   gameBoardCellSize;
+
 
 /*****************************************************************************
  * Helpers
@@ -16,7 +19,7 @@ function pxToNumber(value_px) {
 
 
 /*****************************************************************************
- * Global variables for piece move
+ * Move variables
  *****************************************************************************/
 var element     = undefined;
 var elementLeft = undefined;
@@ -26,32 +29,51 @@ var moveStartX  = undefined;
 var moveStartY  = undefined;
 
 
+
 /*****************************************************************************
  * Piece moving events
  *****************************************************************************/
-function moveStart(event) {
-    var X, Y;
+function getEventPosition(event) {
+    let X, Y;
 
     switch (event.type) {
         case "mousedown":
+        case "mousemove":
+        case "mouseup":
+        case "mouseleave":
             X = event.clientX;
             Y = event.clientY;
             break;
         case "touchstart":
+        case "touchmove":
+        case "touchend":
+        case "touchcancel":
             /* Ignore if touched multiple fingers */
             if (event.targetTouches > 1) {
-                return;
+                return undefined;
             }
 
             X = event.touches[0].clientX;
             Y = event.touches[0].clientY;
             break;
         default:
-            return;
+            return undefined;
+    }
+
+    return {X, Y};
+}
+
+
+function moveStart(event) {
+    /* Get event position */
+    let move = getEventPosition(event);
+    if (move == undefined) {
+        return;
     }
 
     /* Check that target is frame */
     if (event.target.className != "frame") {
+        document.getElementById("debug_text").innerHTML = "not frame";
         return;
     }
 
@@ -59,42 +81,45 @@ function moveStart(event) {
     element     = event.target;
     elementLeft = pxToNumber(element.style.left);
     elementTop  = pxToNumber(element.style.top);
-    moveStartX  = X;
-    moveStartY  = Y;
+    moveStartX  = move.X;
+    moveStartY  = move.Y;
 
-    document.getElementById("debug_text").innerHTML = "move start: " + X + " " + Y;
+    document.getElementById("debug_text").innerHTML = "move start: " + move.X + " " + move.Y;
 }
-
-var counter = 0;
 
 function moveExecute(event) {
     if (element != undefined) {
-        var X, Y;
-
-        switch (event.type) {
-            case "mousemove":
-                X = event.clientX;
-                Y = event.clientY;
-                break;
-            case "touchmove":
-                /* Ignore if touched multiple fingers */
-                if (event.targetTouches > 1) {
-                    return;
-                }
-
-                X = event.touches[0].clientX;
-                Y = event.touches[0].clientY;
-                break;
-            default:
-                return;
+        /* Get event position */
+        let move = getEventPosition(event);
+        if (move == undefined) {
+            return;
         }
 
-//        element.style.left = (parseInt(elementLeft, 10) + X - moveStartX) + "px";
-        element.style.top = (parseInt(elementTop, 10) + Y - moveStartY) + "px";
+        /* Check frame movement limits */
+        var deltaX = move.X - moveStartX;
+        var deltaY = move.Y - moveStartY;
+        if (deltaX > gameBoardCellSize) {
+            deltaX = gameBoardCellSize;
+        }
+        if (deltaX < -gameBoardCellSize) {
+            deltaX = -gameBoardCellSize;
+        }
+        if (deltaY > gameBoardCellSize) {
+            deltaY = gameBoardCellSize;
+        }
+        if (deltaY < -gameBoardCellSize) {
+            deltaY = -gameBoardCellSize;
+        }
 
-        document.getElementById("debug_text").innerHTML = "move execute: " + X + " " + Y + "/" + counter++ ;
-    } else {
-        document.getElementById("debug_text").innerHTML = "move execute: element undefined";
+        if (Math.abs(deltaX) > Math.abs(deltaY)) {
+            element.style.left = (parseInt(elementLeft, 10) + deltaX) + "px";
+            element.style.top  = (parseInt(elementTop,  10) + 0)      + "px";
+        } else {
+            element.style.left = (parseInt(elementLeft, 10) + 0)      + "px";
+            element.style.top  = (parseInt(elementTop,  10) + deltaY) + "px";
+        }
+
+        document.getElementById("debug_text").innerHTML = "move execute: " + move.X + " " + move.Y;
     }
 }
 
@@ -123,8 +148,6 @@ gameBoard.addEventListener("touchend",   moveEnd);
 
 
 
-var gameBoardWidth = gameBoard.clientWidth;
-var gameBoardCellSize;
 
 function makeGrid(width, height) {
     gameBoardCellSize = gameBoardWidth / width;
@@ -168,9 +191,10 @@ function makeGrid(width, height) {
 }
 
 
-//document.getElementById("debug_text").innerHTML = gameBoardWidth;
 //document.getElementById("debug_text").innerHTML = document.documentElement.clientWidth;
 
 
-makeGrid(5, 5);
+makeGrid(7, 7);
+
+document.getElementById("debug_text").innerHTML = gameBoardCellSize;
 

@@ -99,8 +99,11 @@
     cursor:             cell;
     background:         none;
 
-    background-image:   url("../images/background1200.png");
+/*    background-image:   url("../images/background1200.png");
     background-repeat:  repeat;
+*/
+    background:         #67BFEC;
+
 
     border:             var(--border_style);
     border-radius:      var(--border_radius);
