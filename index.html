@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <!-- HEAD -->
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="css/styles.css">
+
+        <title>COUNTER MAZE</title>
+
+    </head>
+
+    <!-- BODY -->
+    <body id="game-screen">
+        <!-- TITLE -->
+        <div id="game-title">
+            COUNTER MAZE
+        </div>
+
+
+        <!-- CONTROLS -->
+        <div id="game-controls">
+          <a class="button" style="float:right;">New Game</a>
+          <a class="button" style="float:left;">Undo</a>
+        </div>
+
+        <!-- GAME BOARD -->
+        <div id="game-board">
+        </div>
+
+        <!-- COPYRIGHT -->
+        <div id="game-copyright">
+            &copy; Copyright Timo Jokitalo, Vesa Timonen
+        </div>
+
+        <!-- INSTRUCTIONS -->
+        <div id="game-instructions">
+            Use your arrow keys to move the tile.
+            When the tile will go to new place a counter below will be decremented.
+            Target is to get all counters to zero.
+        </div>
+
+        <p id="debug_text"></p>
+
+        <!-- SCRIPTS -->
+        <script src="js/test.js"></script>
+
+    </body>
+</html>
