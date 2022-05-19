@@ -73,7 +73,6 @@ function moveStart(event) {
 
     /* Check that target is frame */
     if (event.target.className != "frame") {
-        document.getElementById("debug_text").innerHTML = "not frame";
         return;
     }
 
@@ -83,8 +82,6 @@ function moveStart(event) {
     frameTop    = pxToNumber(frame.style.top);
     moveStartX  = move.X;
     moveStartY  = move.Y;
-
-    document.getElementById("debug_text").innerHTML = "move start: " + move.X + " " + move.Y;
 }
 
 function moveExecute(event) {
@@ -118,14 +115,10 @@ function moveExecute(event) {
             frame.style.left = (parseInt(frameLeft, 10) + 0)      + "px";
             frame.style.top  = (parseInt(frameTop,  10) + deltaY) + "px";
         }
-
-        document.getElementById("debug_text").innerHTML = "move execute: " + move.X + " " + move.Y;
     }
 }
 
 function moveEnd(event) {
-    document.getElementById("debug_text").innerHTML = "move end";
-
     frame       = undefined;
     frameLeft   = undefined;
     frameTop    = undefined;
@@ -233,5 +226,5 @@ function makeGrid(width, height) {
 
 makeGrid(7, 7);
 
-document.getElementById("debug_text").innerHTML = gameBoardCellSize;
+//document.getElementById("debug_text").innerHTML = gameBoardCellSize;
 
