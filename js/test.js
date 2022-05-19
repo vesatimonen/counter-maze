@@ -112,9 +112,12 @@ gameBoard.addEventListener("touchend",   moveEnd);
 
 
 var gameBoardWidth = gameBoard.clientWidth;
-document.getElementById("debug_text").innerHTML = gameBoardWidth;
+var gameBoardCellSize;
 
 function makeGrid(width, height) {
+    gameBoardCellSize = gameBoardWidth / width;
+
+    /* Add numbers */
     for (i = 0; i < height; i++) {
         /* Create row */
         let newRow = document.createElement("div");
@@ -125,19 +128,31 @@ function makeGrid(width, height) {
             /* Create cell */
             let newCell = document.createElement("div");
             newCell.className    = "grid-cell";
-            newCell.style.width  = gameBoardWidth / width + "px";
-            newCell.style.height = gameBoardWidth / width + "px";
+            newCell.style.width  = gameBoardCellSize + "px";
+            newCell.style.height = gameBoardCellSize + "px";
             newRow.appendChild(newCell);
 
             /* Create image */
             let newImage = document.createElement("img");
-//            newImage.src       = "images/" + Math.floor(Math.random() * 10) + "_shadow.svg";
-            newImage.src = "images/" + Math.floor(Math.random() * 10) + "_shadow.png";
             newImage.className = "grid-image";
             newImage.id        = "image-" + i + "-" + j;
+//            newImage.src       = "images/" + Math.floor(Math.random() * 10) + "_shadow.svg";
+            newImage.src       = "images/" + Math.floor(Math.random() * 10) + "_shadow.png";
             newCell.appendChild(newImage);
         }
     }
+
+    /* Add frame */
+    let newImage = document.createElement("img");
+    newImage.className    = "frame";
+    newImage.src          = "images/Frame148.png";
+    newImage.style.left   = gameBoardCellSize / 2 + "px";
+    newImage.style.top    = gameBoardCellSize / 2 + "px";
+    newImage.style.height = gameBoardCellSize * 1.25 + "px";
+
+
+    gameBoard.appendChild(newImage);
+
 }
 
 

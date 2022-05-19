@@ -4,12 +4,6 @@
     --border_radius: 16px;
 }
 
-img {
-  display:      block;
-  margin-left:       auto;
-  margin-right:       auto;
-}
-
 /*** Game screen ***/
 #game-screen {
     /* Prevent text selection*/
@@ -93,6 +87,8 @@ img {
 
     border:             var(--border_style);
     border-radius:      var(--border_radius);
+
+    position:           relative;
 }
 
 .grid-row:after {
@@ -102,12 +98,6 @@ img {
 }
 
 .grid-cell {
-    --size:         54px;
-
-    /* Cell size */
-    width:          var(--size);
-    height:         var(--size);
-
     /* Margins */
     margin:         0;
 
@@ -116,11 +106,22 @@ img {
 }
 
 .grid-image {
+    display:        block;
+    margin:         auto;
+
     /* Scale image always to fill whole div */
     max-width:      100%;
     max-height:     100%;
     width:          auto;
     height:         100%;
+}
+
+
+.frame {
+    position:       absolute;
+    transform:      translate(-50%, -50%);
+
+    z-index: 1;
 }
 
 /*** Game copyright ***/
@@ -143,7 +144,7 @@ img {
 
 /*** Game instructions ***/
 #game-instructions {
-    margin-top:     10px;
+    margin-top:     5px;
 
     font-size:      18px;
     text-align:     center;
