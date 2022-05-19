@@ -89,7 +89,8 @@ function moveExecute(event) {
                 return;
         }
 
-        element.style.left = (parseInt(elementLeft, 10) + X - moveStartX) + "px";
+//        element.style.left = (parseInt(elementLeft, 10) + X - moveStartX) + "px";
+        element.style.top = (parseInt(elementTop, 10) + Y - moveStartY) + "px";
 
         document.getElementById("debug_text").innerHTML = "move execute: " + X + " " + Y + "/" + counter++ ;
     } else {
@@ -172,3 +173,4 @@ function makeGrid(width, height) {
 
 
 makeGrid(5, 5);
+

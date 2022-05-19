@@ -3,7 +3,7 @@
     <!-- HEAD -->
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
         <link rel="stylesheet" href="css/styles.css">
 
@@ -12,7 +12,7 @@
     </head>
 
     <!-- BODY -->
-    <body id="game-screen">
+    <body id="game-screen" onload="setTimeout(function() { window.scrollTo(0, 1); }, 1000);">
 
 
         <!-- CONTROLS -->
@@ -44,10 +44,11 @@
         </div>
 
         <p id="debug_text"></p>
+        <br>
+        sdfgfsdfsdf
+        <br>
 
         <!-- SCRIPTS -->
         <script src="js/test.js"></script>
-
-
     </body>
 </html>

@@ -4,6 +4,7 @@
     --border_radius: 16px;
 }
 
+
 /*** Global default style ***/
 * {
     /* Prevent text selection */
@@ -20,6 +21,10 @@
            -moz-user-drag: none;
              -o-user-drag: none;
                 user-drag: none;
+
+    /* Disable touch zoom */
+    touch-action: pan-y, pan-x;
+
 }
 
 /*** Game screen ***/
@@ -34,6 +39,10 @@
     margin-right:       auto;
 
     background-color:   #B0DDFF; /* #92D2F2, #B0DDFF*/
+
+/*    overflow: hidden;
+    position: fixed;
+*/
 }
 
 /*
@@ -97,6 +106,9 @@
     border-radius:      var(--border_radius);
 
     position:           relative;
+
+    /* Disable scroll with touch */
+    touch-action:   none;
 }
 
 .grid-row:after {
@@ -129,7 +141,8 @@
     position:       absolute;
     transform:      translate(-50%, -50%);
 
-    z-index: 1;
+    /* Disable scroll with touch */
+    touch-action:   none;
 }
 
 /*** Game copyright ***/
