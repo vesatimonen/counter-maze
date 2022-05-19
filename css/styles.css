@@ -23,8 +23,7 @@
                 user-drag: none;
 
     /* Disable touch zoom */
-    touch-action: pan-y, pan-x;
-
+    touch-action: pan-y;
 }
 
 /*** Game screen ***/
@@ -147,8 +146,6 @@
 
     font-size:      12px;
     text-align:     center;
-
-
 }
 
 /*** Game title ***/
