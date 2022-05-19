@@ -21,9 +21,9 @@ function pxToNumber(value_px) {
 /*****************************************************************************
  * Move variables
  *****************************************************************************/
-var element     = undefined;
-var elementLeft = undefined;
-var elementTop  = undefined;
+var frame       = undefined;
+var frameLeft   = undefined;
+var frameTop    = undefined;
 
 var moveStartX  = undefined;
 var moveStartY  = undefined;
@@ -78,9 +78,9 @@ function moveStart(event) {
     }
 
     /* Save move start situation */
-    element     = event.target;
-    elementLeft = pxToNumber(element.style.left);
-    elementTop  = pxToNumber(element.style.top);
+    frame       = event.target;
+    frameLeft   = pxToNumber(frame.style.left);
+    frameTop    = pxToNumber(frame.style.top);
     moveStartX  = move.X;
     moveStartY  = move.Y;
 
@@ -88,7 +88,7 @@ function moveStart(event) {
 }
 
 function moveExecute(event) {
-    if (element != undefined) {
+    if (frame != undefined) {
         /* Get event position */
         let move = getEventPosition(event);
         if (move == undefined) {
@@ -96,8 +96,8 @@ function moveExecute(event) {
         }
 
         /* Check frame movement limits */
-        var deltaX = move.X - moveStartX;
-        var deltaY = move.Y - moveStartY;
+        let deltaX = move.X - moveStartX;
+        let deltaY = move.Y - moveStartY;
         if (deltaX > gameBoardCellSize) {
             deltaX = gameBoardCellSize;
         }
@@ -112,11 +112,11 @@ function moveExecute(event) {
         }
 
         if (Math.abs(deltaX) > Math.abs(deltaY)) {
-            element.style.left = (parseInt(elementLeft, 10) + deltaX) + "px";
-            element.style.top  = (parseInt(elementTop,  10) + 0)      + "px";
+            frame.style.left = (parseInt(frameLeft, 10) + deltaX) + "px";
+            frame.style.top  = (parseInt(frameTop,  10) + 0)      + "px";
         } else {
-            element.style.left = (parseInt(elementLeft, 10) + 0)      + "px";
-            element.style.top  = (parseInt(elementTop,  10) + deltaY) + "px";
+            frame.style.left = (parseInt(frameLeft, 10) + 0)      + "px";
+            frame.style.top  = (parseInt(frameTop,  10) + deltaY) + "px";
         }
 
         document.getElementById("debug_text").innerHTML = "move execute: " + move.X + " " + move.Y;
@@ -126,27 +126,63 @@ function moveExecute(event) {
 function moveEnd(event) {
     document.getElementById("debug_text").innerHTML = "move end";
 
-    element     = undefined;
+    frame       = undefined;
+    frameLeft   = undefined;
+    frameTop    = undefined;
     moveStartX  = undefined;
     moveStartY  = undefined;
-    elementLeft = undefined;
-    elementTop  = undefined;
 }
 
+/*****************************************************************************
+ * Keyboard input handling
+ *****************************************************************************/
+function keyPressed(event) {
+
+    let frame = document.getElementById("frame");
+
+    switch (event.key) {
+        case 'ArrowUp':
+        case 'w':
+        case 'W':
+            frame.style.top = pxToNumber(frame.style.top) - gameBoardCellSize + "px";
+            break;
+        case 'ArrowDown':
+        case 's':
+        case 'S':
+            frame.style.top = pxToNumber(frame.style.top) + gameBoardCellSize + "px";
+            break;
+        case 'ArrowLeft':
+        case 'a':
+        case 'A':
+            frame.style.left = pxToNumber(frame.style.left) - gameBoardCellSize + "px";
+            break;
+        case 'ArrowRight':
+        case 'd':
+        case 'D':
+            frame.style.left = pxToNumber(frame.style.left) + gameBoardCellSize + "px";
+            break;
+    }
+}
 
 /*****************************************************************************
- * Register piece moving events to game board
+ * Register mouse event handlers
  *****************************************************************************/
 gameBoard.addEventListener("mousedown",  moveStart);
 gameBoard.addEventListener("mousemove",  moveExecute);
 gameBoard.addEventListener("mouseup",    moveEnd);
 gameBoard.addEventListener("mouseleave", moveEnd);
 
+/*****************************************************************************
+ * Register touch event handlers
+ *****************************************************************************/
 gameBoard.addEventListener("touchstart", moveStart);
 gameBoard.addEventListener("touchmove",  moveExecute);
 gameBoard.addEventListener("touchend",   moveEnd);
 
-
+/*****************************************************************************
+ * Register keyboard event handlers
+ *****************************************************************************/
+document.addEventListener("keydown",     keyPressed);
 
 
 function makeGrid(width, height) {
@@ -180,6 +216,7 @@ function makeGrid(width, height) {
     /* Add frame */
     let newImage = document.createElement("img");
     newImage.className    = "frame";
+    newImage.id           = "frame";
     newImage.src          = "images/Frame148.png";
     newImage.style.left   = gameBoardCellSize / 2 + "px";
     newImage.style.top    = gameBoardCellSize / 2 + "px";
