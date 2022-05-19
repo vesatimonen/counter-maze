@@ -317,7 +317,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -327,7 +327,7 @@
      id="layer1"
      transform="translate(0,-932.36218)">
     <rect
-       style="opacity:0.616471;fill:#32aae6;fill-opacity:1;stroke:#404040;stroke-width:1.0531;stroke-opacity:1;filter:url(#filter5651)"
+       style="opacity:0.5;fill:#32aae6;fill-opacity:1;stroke:#404040;stroke-width:1.0531;stroke-opacity:1;filter:url(#filter5651)"
        id="rect2816"
        width="117.9469"
        height="117.9469"
@@ -335,19 +335,6 @@
        y="947.38873"
        rx="15"
        ry="15"
-       inkscape:export-filename="C:\OWN\Bacteria\Piece.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
-    <rect
-       style="fill:none;stroke:#404040;stroke-width:8.12175;stroke-miterlimit:0;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter5399)"
-       id="rect5241"
-       width="116.12487"
-       height="116.12486"
-       x="1.9375674"
-       y="934.29974"
-       rx="14.01507"
-       ry="14.01507"
-       transform="matrix(0.96823622,0,0,0.96815975,15.703567,45.80554)"
        inkscape:export-filename="C:\OWN\Bacteria\Piece.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />

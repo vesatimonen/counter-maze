@@ -4,9 +4,9 @@
     --border_radius: 16px;
 }
 
-/*** Game screen ***/
-#game-screen {
-    /* Prevent text selection*/
+/*** Global default style ***/
+* {
+    /* Prevent text selection */
     -webkit-touch-callout: none; /* iOS Safari */
       -webkit-user-select: none; /* Safari */
        -khtml-user-select: none; /* Konqueror HTML */
@@ -14,6 +14,16 @@
           -ms-user-select: none; /* Internet Explorer/Edge */
               user-select: none;
 
+    /* Prevent dragging */
+        -webkit-user-drag: none;
+         -khtml-user-drag: none;
+           -moz-user-drag: none;
+             -o-user-drag: none;
+                user-drag: none;
+}
+
+/*** Game screen ***/
+#game-screen {
     /* Default font */
     font-family:        Courier New, monospace;
 
@@ -33,8 +43,6 @@
     }
 }
 */
-
-
 
 /*** Game controls ***/
 #game-controls {
@@ -130,6 +138,8 @@
 
     font-size:      12px;
     text-align:     center;
+
+
 }
 
 /*** Game title ***/

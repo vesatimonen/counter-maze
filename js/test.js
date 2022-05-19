@@ -50,8 +50,8 @@ function moveStart(event) {
             return;
     }
 
-    /* Check that target is class "piece" */
-    if (event.target.className != "piece") {
+    /* Check that target is frame */
+    if (event.target.className != "frame") {
         return;
     }
 
@@ -61,7 +61,11 @@ function moveStart(event) {
     elementTop  = pxToNumber(element.style.top);
     moveStartX  = X;
     moveStartY  = Y;
+
+    document.getElementById("debug_text").innerHTML = "move start: " + X + " " + Y;
 }
+
+var counter = 0;
 
 function moveExecute(event) {
     if (element != undefined) {
@@ -86,10 +90,16 @@ function moveExecute(event) {
         }
 
         element.style.left = (parseInt(elementLeft, 10) + X - moveStartX) + "px";
+
+        document.getElementById("debug_text").innerHTML = "move execute: " + X + " " + Y + "/" + counter++ ;
+    } else {
+        document.getElementById("debug_text").innerHTML = "move execute: element undefined";
     }
 }
 
 function moveEnd(event) {
+    document.getElementById("debug_text").innerHTML = "move end";
+
     element     = undefined;
     moveStartX  = undefined;
     moveStartY  = undefined;
@@ -109,6 +119,7 @@ gameBoard.addEventListener("mouseleave", moveEnd);
 gameBoard.addEventListener("touchstart", moveStart);
 gameBoard.addEventListener("touchmove",  moveExecute);
 gameBoard.addEventListener("touchend",   moveEnd);
+
 
 
 var gameBoardWidth = gameBoard.clientWidth;
@@ -148,7 +159,7 @@ function makeGrid(width, height) {
     newImage.src          = "images/Frame148.png";
     newImage.style.left   = gameBoardCellSize / 2 + "px";
     newImage.style.top    = gameBoardCellSize / 2 + "px";
-    newImage.style.height = gameBoardCellSize * 1.25 + "px";
+    newImage.style.height = gameBoardCellSize * 1.2 + "px";
 
 
     gameBoard.appendChild(newImage);
@@ -156,7 +167,6 @@ function makeGrid(width, height) {
 }
 
 
-// window.screen.availWidth
 //document.getElementById("debug_text").innerHTML = gameBoardWidth;
 //document.getElementById("debug_text").innerHTML = document.documentElement.clientWidth;
 
