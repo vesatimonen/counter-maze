@@ -6,6 +6,8 @@ const gameBoard      = document.getElementById("game-board");
 var   gameBoardWidth = gameBoard.clientWidth;
 var   gameBoardCellSize;
 
+var   gameGridWidth;
+var   gameGridHeight;
 
 /*****************************************************************************
  * Helpers
@@ -95,7 +97,7 @@ function moveExecute(event) {
             return;
         }
 
-        /* Check frame movement limits */
+        /* Check frame grid limits */
         let deltaX = move.X - moveStartX;
         let deltaY = move.Y - moveStartY;
         if (deltaX > gameBoardCellSize) {
@@ -111,13 +113,27 @@ function moveExecute(event) {
             deltaY = -gameBoardCellSize;
         }
 
-        /* Find closest direction */
+        /* Select horizontal or vertical direction */
         if (Math.abs(deltaX) > Math.abs(deltaY)) {
             frameX = frameStartX + deltaX;
             frameY = frameStartY;
         } else {
             frameX = frameStartX;
             frameY = frameStartY + deltaY;
+        }
+
+        /* Check board limits */
+        if (frameX / gameBoardCellSize < 0.5) {
+            frameX = 0.5 * gameBoardCellSize;
+        }
+        if (frameX / gameBoardCellSize > gameGridWidth - 0.5) {
+            frameX = (gameGridWidth - 0.5) * gameBoardCellSize;
+        }
+        if (frameY / gameBoardCellSize < 0.5) {
+            frameY = 0.5 * gameBoardCellSize;
+        }
+        if (frameY / gameBoardCellSize > gameGridHeight - 0.5) {
+            frameY = (gameGridHeight - 0.5) * gameBoardCellSize;
         }
 
         /* Move frame */
@@ -203,6 +219,9 @@ document.addEventListener("keydown",     keyPressed);
  *****************************************************************************/
 function drawGrid(width, height) {
 
+    gameGridWidth  = width;
+    gameGridHeight = height;
+
     /* Get board current size */
     gameBoardWidth = gameBoard.clientWidth;
 
@@ -260,7 +279,7 @@ function hideGame() {
 }
 
 function drawGame() {
-    drawGrid(7, 7);
+    drawGrid(7, 5);
 }
 
 function showGame() {
