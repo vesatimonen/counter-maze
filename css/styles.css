@@ -54,13 +54,13 @@
 #game-controls {
     margin-top:         10px;
 
-    display: flex;
+    display:            flex;
 }
 
 #game-controls:after {
     content:            "";
-    display:            block;
     clear:              both;
+    display:            block;
 }
 
 .button {
@@ -111,8 +111,9 @@
 
 .grid-row:after {
     content:        "";
-    display:        block;
     clear:          both;
+
+    display:        block;
 }
 
 .grid-cell {
@@ -121,7 +122,6 @@
 }
 
 .grid-image {
-    display:        block;
     margin:         auto;
 
     /* Scale image always to fill whole div */
@@ -129,6 +129,8 @@
     max-height:     100%;
     width:          auto;
     height:         100%;
+
+    display:        block;
 }
 
 

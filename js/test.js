@@ -1,6 +1,7 @@
 /*****************************************************************************
  * Game board variables
  *****************************************************************************/
+const gameScreen     = document.getElementById("game-screen");
 const gameBoard      = document.getElementById("game-board");
 var   gameBoardWidth = gameBoard.clientWidth;
 var   gameBoardCellSize;
@@ -178,10 +179,19 @@ gameBoard.addEventListener("touchend",   moveEnd);
 document.addEventListener("keydown",     keyPressed);
 
 
+/*****************************************************************************
+ * Register keyboard event handlers
+ *****************************************************************************/
 function makeGrid(width, height) {
+    /* Clear grid */
+    while (gameBoard.firstChild) {
+        gameBoard.removeChild(gameBoard.firstChild);
+    }
+
+    /* Calculate cell size */
     gameBoardCellSize = gameBoardWidth / width;
 
-    /* Add numbers */
+    /* Create grid and add number images */
     for (i = 0; i < height; i++) {
         /* Create row */
         let newRow = document.createElement("div");
@@ -217,14 +227,13 @@ function makeGrid(width, height) {
 
 
     gameBoard.appendChild(newImage);
-
 }
 
 
-//document.getElementById("debug_text").innerHTML = document.documentElement.clientWidth;
-
-
+gameScreen.style.display = "none";
 makeGrid(7, 7);
+
+window.addEventListener("load", function() { gameScreen.style.display = "block"; });
 
 //document.getElementById("debug_text").innerHTML = gameBoardCellSize;
 
