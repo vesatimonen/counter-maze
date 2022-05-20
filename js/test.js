@@ -23,8 +23,10 @@ function pxToNumber(value_px) {
  * Move variables
  *****************************************************************************/
 var frame       = undefined;
-var frameLeft   = undefined;
-var frameTop    = undefined;
+var frameStartX = undefined;
+var frameStartY = undefined;
+var frameX      = undefined;
+var frameY      = undefined;
 
 var moveStartX  = undefined;
 var moveStartY  = undefined;
@@ -79,14 +81,17 @@ function moveStart(event) {
 
     /* Save move start situation */
     frame       = event.target;
-    frameLeft   = pxToNumber(frame.style.left);
-    frameTop    = pxToNumber(frame.style.top);
+    frameStartX = pxToNumber(frame.style.left);
+    frameStartY = pxToNumber(frame.style.top);
+    frameX      = frameStartX;
+    frameY      = frameStartY;
     moveStartX  = move.X;
     moveStartY  = move.Y;
 }
 
 function moveExecute(event) {
     if (frame != undefined) {
+document.getElementById("debug_text").innerHTML = "move execute";
         /* Get event position */
         let move = getEventPosition(event);
         if (move == undefined) {
@@ -109,20 +114,37 @@ function moveExecute(event) {
             deltaY = -gameBoardCellSize;
         }
 
+        /* Find closest direction */
         if (Math.abs(deltaX) > Math.abs(deltaY)) {
-            frame.style.left = (parseInt(frameLeft, 10) + deltaX) + "px";
-            frame.style.top  = (parseInt(frameTop,  10) + 0)      + "px";
+            frameX = frameStartX + deltaX;
+            frameY = frameStartY;
         } else {
-            frame.style.left = (parseInt(frameLeft, 10) + 0)      + "px";
-            frame.style.top  = (parseInt(frameTop,  10) + deltaY) + "px";
+            frameX = frameStartX;
+            frameY = frameStartY + deltaY;
         }
+
+        /* Move frame */
+        frame.style.left = frameX + "px";
+        frame.style.top  = frameY + "px";
     }
 }
 
 function moveEnd(event) {
+    if (frame != undefined) {
+        /* Snap to center of the grid (0.3 -> 0.5) */
+        frameX = (Math.round(frameX / gameBoardCellSize - 0.5) + 0.5) * gameBoardCellSize;
+        frameY = (Math.round(frameY / gameBoardCellSize - 0.5) + 0.5) * gameBoardCellSize;
+
+        /* Move frame */
+        frame.style.left = frameX + "px";
+        frame.style.top  = frameY + "px";
+    }
+
     frame       = undefined;
-    frameLeft   = undefined;
-    frameTop    = undefined;
+    frameStartX = undefined;
+    frameStartY = undefined;
+    frameX      = undefined;
+    frameY      = undefined;
     moveStartX  = undefined;
     moveStartY  = undefined;
 }
@@ -224,7 +246,6 @@ function makeGrid(width, height) {
     newImage.style.left   = gameBoardCellSize / 2 + "px";
     newImage.style.top    = gameBoardCellSize / 2 + "px";
     newImage.style.height = gameBoardCellSize * 1.2 + "px";
-
 
     gameBoard.appendChild(newImage);
 }
