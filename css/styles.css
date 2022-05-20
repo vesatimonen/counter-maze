@@ -23,7 +23,7 @@
                 user-drag: none;
 
     /* Disable touch zoom */
-    touch-action: pan-y;
+             touch-action: pan-y;
 }
 
 /*** Game screen ***/

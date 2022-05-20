@@ -31,8 +31,6 @@ var frameY      = undefined;
 var moveStartX  = undefined;
 var moveStartY  = undefined;
 
-
-
 /*****************************************************************************
  * Piece moving events
  *****************************************************************************/
@@ -91,7 +89,6 @@ function moveStart(event) {
 
 function moveExecute(event) {
     if (frame != undefined) {
-document.getElementById("debug_text").innerHTML = "move execute";
         /* Get event position */
         let move = getEventPosition(event);
         if (move == undefined) {
@@ -204,13 +201,18 @@ document.addEventListener("keydown",     keyPressed);
 /*****************************************************************************
  * Register keyboard event handlers
  *****************************************************************************/
-function makeGrid(width, height) {
+function drawGrid(width, height) {
+
+    /* Get board current size */
+    gameBoardWidth = gameBoard.clientWidth;
+
     /* Clear grid */
     while (gameBoard.firstChild) {
         gameBoard.removeChild(gameBoard.firstChild);
     }
 
     /* Calculate cell size */
+
     gameBoardCellSize = gameBoardWidth / width;
 
     /* Create grid and add number images */
@@ -250,11 +252,40 @@ function makeGrid(width, height) {
     gameBoard.appendChild(newImage);
 }
 
+/*****************************************************************************
+ * Game visibility handling
+ *****************************************************************************/
+function hideGame() {
+    gameScreen.style.visibility = "hidden";
+}
 
-gameScreen.style.display = "none";
-makeGrid(7, 7);
+function drawGame() {
+    drawGrid(7, 7);
+}
 
-window.addEventListener("load", function() { gameScreen.style.display = "block"; });
+function showGame() {
+    gameScreen.style.visibility = "visible";
+}
 
-//document.getElementById("debug_text").innerHTML = gameBoardCellSize;
+function resizeGame() {
+    if (gameBoardWidth != gameBoard.clientWidth) {
+        gameBoardWidth = gameBoard.clientWidth;
+        drawGame();
+    }
+}
+
+/*****************************************************************************
+ * Window event handlers
+ *****************************************************************************/
+window.addEventListener("load",   showGame);
+window.addEventListener("resize", resizeGame);
+
+/*****************************************************************************
+ * Window event handlers
+ *****************************************************************************/
+hideGame();
+drawGame();
+
+
+//document.getElementById("debug_text").innerHTML = window.innerWidth;
 
