@@ -41,3 +41,15 @@ game.board.randomize();
  *****************************************************************************/
 hideGame();
 drawGame();
+
+
+/*
+    STORAGE -> GAME continue
+    //localStorage.setItem("gamestate", JSON.stringify(game));
+    //game = JSON.parse(localStorage.getItem("gamestate"));
+    //document.getElementById("debug_text").innerHTML = ": " + test;
+
+    game.init(savepoint);
+*/
+
+

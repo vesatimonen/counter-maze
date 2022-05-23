@@ -55,7 +55,19 @@ class Game {
     constructor() {
         /* Properties */
         this.board  = new Board();
+
+        // <move> = (x0, y0), (x1, y1)
+        // <move list> = count, <move>, ...
+
+        // <move history> = <move list>
     }
+
+    // legalMoves()
+    // moveHistory()
+    // moveUndo() ???
+    // makeMove()
+    // isLegalMove
+
 }
 
 

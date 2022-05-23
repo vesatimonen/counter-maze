@@ -164,22 +164,22 @@ function uiKeyPressed(event) {
         case 'ArrowUp':
         case 'w':
         case 'W':
-            frame.style.top = pxToNumber(frame.style.top) - gameBoardCellSize + "px";
+            frame.style.top = parseInt(frame.style.top, 10) - gameBoardCellSize + "px";
             break;
         case 'ArrowDown':
         case 's':
         case 'S':
-            frame.style.top = pxToNumber(frame.style.top) + gameBoardCellSize + "px";
+            frame.style.top = parseInt(frame.style.top, 10) + gameBoardCellSize + "px";
             break;
         case 'ArrowLeft':
         case 'a':
         case 'A':
-            frame.style.left = pxToNumber(frame.style.left) - gameBoardCellSize + "px";
+            frame.style.left = parseInt(frame.style.left, 10) - gameBoardCellSize + "px";
             break;
         case 'ArrowRight':
         case 'd':
         case 'D':
-            frame.style.left = pxToNumber(frame.style.left) + gameBoardCellSize + "px";
+            frame.style.left = parseInt(frame.style.left, 10) + gameBoardCellSize + "px";
             break;
     }
 }
