@@ -72,14 +72,14 @@ class Board {
                         break;
                 }
 
-                /* Check if back */
-                if (oldX == newX && oldY == newY) {
+                /* Check board limits */
+                if (newX < 0 || newX >= this.width ||
+                    newY < 0 || newY >= this.height) {
                     continue;
                 }
 
-                /* Check if out of board */
-                if (newX < 0 || newX >= this.width ||
-                    newY < 0 || newY >= this.height) {
+                /* Check if backward move */
+                if (oldX == newX && oldY == newY) {
                     continue;
                 }
 
@@ -102,7 +102,7 @@ class Board {
             moves--;
         }
 
-    this.frame.X = startX;
+        this.frame.X = startX;
         this.frame.Y = startY;
 
 //        document.getElementById("debug_text").innerHTML = "Board created: " + this.frame.X;
@@ -111,20 +111,114 @@ class Board {
 
 class Game {
     constructor() {
-        /* Properties */
-        this.board  = new Board();
+        /* Game board */
+        this.board = new Board();
 
-        // <move> = (x0, y0), (x1, y1)
-        // <move list> = count, <move>, ...
+        /* Possible move options */
+        this.moveOptions = ["up", "right", "down", "left"];
 
-        // <move history> = <move list>
+        /* Game move history */
+        this.moveHistory = [];
+
+//        document.getElementById("debug_text").innerHTML = "Board created: " + this.moveOptions;
     }
 
-    // legalMoves()
-    // moveHistory()
+    /* Convert move string to XY-place */
+    moveToPlace (move) {
+        switch (move) {
+            case "up":
+                return {X: this.board.frame.X,
+                        Y: this.board.frame.Y - 1};
+                break;
+            case "right":
+                return {X: this.board.frame.X + 1,
+                        Y: this.board.frame.Y};
+                break;
+            case "down":
+                return {X: this.board.frame.X,
+                        Y: this.board.frame.Y + 1};
+                break;
+            case "left":
+                return {X: this.board.frame.X - 1,
+                        Y: this.board.frame.Y};
+                break;
+        }
+
+        return {X: undefined,
+                Y: undefined};
+    }
+
+    /* Check if move is legal */
+    moveIsLegal (move) {
+        let place = this.moveToPlace(move);
+
+        /* Check board limits */
+        if (place.X < 0 || place.X >= this.board.width ||
+            place.Y < 0 || place.Y >= this.board.height) {
+            return false;
+        }
+
+        /* Check if backward move */
+        if (this.moveHistory.length > 0) {
+            switch (this.moveHistory[this.moveHistory.length - 1]) {
+                case "up":
+                    if (move == "down") {
+                        return false;
+                    }
+                    break;
+                case "right":
+                    if (move == "left") {
+                        return false;
+                    }
+                    break;
+                case "down":
+                    if (move == "up") {
+                        return false;
+                    }
+                    break;
+                case "left":
+                    if (move == "right") {
+                        return false;
+                    }
+                    break;
+            }
+        }
+
+//document.getElementById("debug_text").innerHTML = ":" + place.X + " " + place.Y + " = " + this.board.items[place.X][place.Y];
+
+        /* Check that counter is not zero */
+        if (this.board.items[place.X][place.Y] == 0) {
+            return false;
+        }
+
+        return true;
+    }
+
+    moveExecute (move) {
+        /* Check that move is legal */
+        if (this.moveIsLegal(move) == false) {
+            return false;
+        }
+
+        let place = this.moveToPlace(move);
+
+        /* Move frame */
+        this.board.frame.X = place.X;
+        this.board.frame.Y = place.Y;
+
+        /* Decrement counter */
+        this.board.items[place.X][place.Y]--;
+
+        /* Save move */
+        this.moveHistory.push(move);
+
+        return true;
+    }
+
     // moveUndo() ???
-    // makeMove()
-    // isLegalMove
+    // legalMovesList ???
+    // refresh counters after move
+
 
 }
 

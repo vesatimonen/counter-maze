@@ -164,21 +164,37 @@ function uiKeyPressed(event) {
         case 'ArrowUp':
         case 'w':
         case 'W':
+            if (game.moveExecute("up") == false) {
+                return;
+            }
+
             frame.style.top = parseInt(frame.style.top, 10) - gameBoardCellSize + "px";
             break;
         case 'ArrowDown':
         case 's':
         case 'S':
+            if (game.moveExecute("down") == false) {
+                return;
+            }
+
             frame.style.top = parseInt(frame.style.top, 10) + gameBoardCellSize + "px";
             break;
         case 'ArrowLeft':
         case 'a':
         case 'A':
+            if (game.moveExecute("left") == false) {
+                return;
+            }
+
             frame.style.left = parseInt(frame.style.left, 10) - gameBoardCellSize + "px";
             break;
         case 'ArrowRight':
         case 'd':
         case 'D':
+            if (game.moveExecute("right") == false) {
+                return;
+            }
+
             frame.style.left = parseInt(frame.style.left, 10) + gameBoardCellSize + "px";
             break;
     }
