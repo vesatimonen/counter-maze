@@ -244,8 +244,10 @@ function uiDrawBoard(game) {
             let newImage = document.createElement("img");
             newImage.className = "grid-image";
             newImage.id        = "image-" + i + "-" + j;
-//            newImage.src       = "images/" + Math.floor(Math.random() * 10) + "_shadow.svg";
-            newImage.src       = "images/" + Math.floor(Math.random() * 10) + "_shadow.png";
+//            let number = Math.floor(Math.random() * 10);
+            let number = game.board[j][i];
+//            newImage.src       = "images/" + number + "_shadow.svg";
+            newImage.src       = "images/" + number + "_shadow.png";
             newCell.appendChild(newImage);
         }
     }
