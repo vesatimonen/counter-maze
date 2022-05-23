@@ -37,15 +37,73 @@ class Board {
     }
 
     /* Randomize board (for testing) */
-    randomize() {
-        for (let i = 0; i < this.width; i++) {
-            for(let j = 0; j < this.height; j++) {
-                this.items[i][j] = Math.floor(Math.random() * 10);;
+    randomize(moves) {
+        /* Start position */
+        let startX = Math.floor(Math.random() * this.width);
+        let startY = Math.floor(Math.random() * this.height);
+
+        /* Randomize moves */
+        let oldX = -1;
+        let oldY = -1;
+        let currX = startX;
+        let currY = startY;
+        let newX = 0;
+        let newY = 0;
+        while (moves > 0) {
+            /* Random legal move */
+            while (true) {
+                let direction = Math.floor(Math.random() * 4);
+                switch (direction) {
+                    case 0: /* Up */
+                        newX = currX;
+                        newY = currY - 1;
+                        break;
+                    case 1: /* Right */
+                        newX = currX + 1;
+                        newY = currY;
+                        break;
+                    case 2: /* Down */
+                        newX = currX;
+                        newY = currY + 1;
+                        break;
+                    case 3: /* Left */
+                        newX = currX - 1;
+                        newY = currY;
+                        break;
+                }
+
+                /* Check if back */
+                if (oldX == newX && oldY == newY) {
+                    continue;
+                }
+
+                /* Check if out of board */
+                if (newX < 0 || newX >= this.width ||
+                    newY < 0 || newY >= this.height) {
+                    continue;
+                }
+
+                /* Check that counter is not too high */
+                if (this.items[newX][newY] >= 9) {
+                    continue;
+                }
+
+                /* Found legal move */
+                break;
             }
+
+            /* Make move */
+            this.items[newX][newY]++;
+            oldX = currX;
+            oldY = currY;
+            currX = newX;
+            currY = newY;
+
+            moves--;
         }
 
-        this.frame.X = Math.floor(Math.random() * this.width);
-        this.frame.Y = Math.floor(Math.random() * this.height);
+    this.frame.X = startX;
+        this.frame.Y = startY;
 
 //        document.getElementById("debug_text").innerHTML = "Board created: " + this.frame.X;
     }
