@@ -208,10 +208,10 @@ document.addEventListener("keydown",     uiKeyPressed);
 /*****************************************************************************
  * Register keyboard event handlers
  *****************************************************************************/
-function uiDrawBoard(game) {
+function uiDrawBoard(board) {
 
-    gameGridWidth  = game.width;
-    gameGridHeight = game.height;
+    gameGridWidth  = board.width;
+    gameGridHeight = board.height;
 
     /* Get board current size */
     gameBoardWidth = gameBoard.clientWidth;
@@ -245,7 +245,7 @@ function uiDrawBoard(game) {
             newImage.className = "grid-image";
             newImage.id        = "image-" + i + "-" + j;
 //            let number = Math.floor(Math.random() * 10);
-            let number = game.board[j][i];
+            let number = board.items[j][i];
 //            newImage.src       = "images/" + number + "_shadow.svg";
             newImage.src       = "images/" + number + "_shadow.png";
             newCell.appendChild(newImage);
@@ -257,8 +257,8 @@ function uiDrawBoard(game) {
     newImage.className    = "frame";
     newImage.id           = "frame";
     newImage.src          = "images/Frame148.png";
-    newImage.style.left   = gameBoardCellSize / 2 + "px";
-    newImage.style.top    = gameBoardCellSize / 2 + "px";
+    newImage.style.left   = board.frame.X * gameBoardCellSize + gameBoardCellSize / 2 + "px";
+    newImage.style.top    = board.frame.Y * gameBoardCellSize + gameBoardCellSize / 2 + "px";
     newImage.style.height = gameBoardCellSize * 1.2 + "px";
 
     gameBoard.appendChild(newImage);

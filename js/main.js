@@ -7,7 +7,7 @@ function hideGame() {
 }
 
 function drawGame() {
-    uiDrawBoard(game);
+    uiDrawBoard(game.board);
 }
 
 function showGame() {
@@ -32,8 +32,8 @@ window.addEventListener("resize", resizeGame);
  * Create game
  *****************************************************************************/
 var game = new Game();
-game.init(6, 4);
-game.randomize();
+game.board.init(6, 4);
+game.board.randomize();
 
 
 /*****************************************************************************
