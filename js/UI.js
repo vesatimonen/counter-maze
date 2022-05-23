@@ -25,7 +25,7 @@ var moveStartY  = undefined;
 
 
 /*****************************************************************************
- * Piece moving events
+ * Touch and mouse move handling
  *****************************************************************************/
 function uiMovePosition(event) {
     let X, Y;
@@ -208,10 +208,10 @@ document.addEventListener("keydown",     uiKeyPressed);
 /*****************************************************************************
  * Register keyboard event handlers
  *****************************************************************************/
-function drawGrid(width, height) {
+function uiDrawBoard(game) {
 
-    gameGridWidth  = width;
-    gameGridHeight = height;
+    gameGridWidth  = game.width;
+    gameGridHeight = game.height;
 
     /* Get board current size */
     gameBoardWidth = gameBoard.clientWidth;
@@ -223,16 +223,16 @@ function drawGrid(width, height) {
 
     /* Calculate cell size */
 
-    gameBoardCellSize = gameBoardWidth / width;
+    gameBoardCellSize = gameBoardWidth / gameGridWidth;
 
     /* Create grid and add number images */
-    for (i = 0; i < height; i++) {
+    for (i = 0; i < gameGridHeight; i++) {
         /* Create row */
         let newRow = document.createElement("div");
         newRow.className = "grid-row";
         gameBoard.appendChild(newRow);
 
-        for (j = 0; j < width; j++) {
+        for (j = 0; j < gameGridWidth; j++) {
             /* Create cell */
             let newCell = document.createElement("div");
             newCell.className    = "grid-cell";
@@ -262,42 +262,6 @@ function drawGrid(width, height) {
     gameBoard.appendChild(newImage);
 }
 
-/*****************************************************************************
- * Game visibility handling
- *****************************************************************************/
-function hideGame() {
-    gameScreen.style.visibility = "hidden";
-}
-
-function drawGame() {
-    drawGrid(7, 5);
-}
-
-function showGame() {
-    gameScreen.style.visibility = "visible";
-}
-
-function resizeGame() {
-    if (gameBoardWidth != gameBoard.clientWidth) {
-        gameBoardWidth = gameBoard.clientWidth;
-        drawGame();
-    }
-}
-
-/*****************************************************************************
- * Window event handlers
- *****************************************************************************/
-window.addEventListener("load",   showGame);
-window.addEventListener("resize", resizeGame);
-
-/*****************************************************************************
- * Create game object
- *****************************************************************************/
-let game = new Game(2, 4);
-
-
-hideGame();
-drawGame();
 
 
 //document.getElementById("debug_text").innerHTML = window.innerWidth;
