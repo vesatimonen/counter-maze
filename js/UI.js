@@ -9,16 +9,6 @@ var   gameBoardCellSize;
 var   gameGridWidth;
 var   gameGridHeight;
 
-/*****************************************************************************
- * Helpers
- *****************************************************************************/
-function pxToNumber(value_px) {
-    const value = parseInt(value_px, 10);
-    if (isNaN(value)) {
-        return 0;
-    }
-    return value;
-}
 
 
 /*****************************************************************************
@@ -33,10 +23,11 @@ var frameY      = undefined;
 var moveStartX  = undefined;
 var moveStartY  = undefined;
 
+
 /*****************************************************************************
  * Piece moving events
  *****************************************************************************/
-function getEventPosition(event) {
+function uiMovePosition(event) {
     let X, Y;
 
     switch (event.type) {
@@ -67,9 +58,9 @@ function getEventPosition(event) {
 }
 
 
-function moveStart(event) {
+function uiMoveStart(event) {
     /* Get event position */
-    let move = getEventPosition(event);
+    let move = uiMovePosition(event);
     if (move == undefined) {
         return;
     }
@@ -81,18 +72,18 @@ function moveStart(event) {
 
     /* Save move start situation */
     frame       = event.target;
-    frameStartX = pxToNumber(frame.style.left);
-    frameStartY = pxToNumber(frame.style.top);
+    frameStartX = parseInt(frame.style.left, 10);
+    frameStartY = parseInt(frame.style.top, 10);
     frameX      = frameStartX;
     frameY      = frameStartY;
     moveStartX  = move.X;
     moveStartY  = move.Y;
 }
 
-function moveExecute(event) {
+function uiMoveExecute(event) {
     if (frame != undefined) {
         /* Get event position */
-        let move = getEventPosition(event);
+        let move = uiMovePosition(event);
         if (move == undefined) {
             return;
         }
@@ -142,7 +133,7 @@ function moveExecute(event) {
     }
 }
 
-function moveEnd(event) {
+function uiMoveEnd(event) {
     if (frame != undefined) {
         /* Snap to center of the grid (0.3 -> 0.5) */
         frameX = (Math.round(frameX / gameBoardCellSize - 0.5) + 0.5) * gameBoardCellSize;
@@ -165,7 +156,7 @@ function moveEnd(event) {
 /*****************************************************************************
  * Keyboard input handling
  *****************************************************************************/
-function keyPressed(event) {
+function uiKeyPressed(event) {
 
     let frame = document.getElementById("frame");
 
@@ -196,22 +187,22 @@ function keyPressed(event) {
 /*****************************************************************************
  * Register mouse event handlers
  *****************************************************************************/
-gameBoard.addEventListener("mousedown",  moveStart);
-gameBoard.addEventListener("mousemove",  moveExecute);
-gameBoard.addEventListener("mouseup",    moveEnd);
-gameBoard.addEventListener("mouseleave", moveEnd);
+gameBoard.addEventListener("mousedown",  uiMoveStart);
+gameBoard.addEventListener("mousemove",  uiMoveExecute);
+gameBoard.addEventListener("mouseup",    uiMoveEnd);
+gameBoard.addEventListener("mouseleave", uiMoveEnd);
 
 /*****************************************************************************
  * Register touch event handlers
  *****************************************************************************/
-gameBoard.addEventListener("touchstart", moveStart);
-gameBoard.addEventListener("touchmove",  moveExecute);
-gameBoard.addEventListener("touchend",   moveEnd);
+gameBoard.addEventListener("touchstart", uiMoveStart);
+gameBoard.addEventListener("touchmove",  uiMoveExecute);
+gameBoard.addEventListener("touchend",   uiMoveEnd);
 
 /*****************************************************************************
  * Register keyboard event handlers
  *****************************************************************************/
-document.addEventListener("keydown",     keyPressed);
+document.addEventListener("keydown",     uiKeyPressed);
 
 
 /*****************************************************************************
@@ -300,8 +291,11 @@ window.addEventListener("load",   showGame);
 window.addEventListener("resize", resizeGame);
 
 /*****************************************************************************
- * Window event handlers
+ * Create game object
  *****************************************************************************/
+let game = new Game(2, 4);
+
+
 hideGame();
 drawGame();
 
