@@ -9,8 +9,7 @@ function array2D(width, height, value) {
     // inserting elements to array
     for (let i = 0; i < width; i++) {
         for(let j = 0; j < height; j++) {
-//            arr[i][j] = value;
-            arr[i][j] = Math.floor(Math.random() * 10);
+            arr[i][j] = value;
         }
     }
 
@@ -34,11 +33,20 @@ class Game {
         this.width  = width;
         this.height = height;
 
-        this.board  = array2D(width, height, 7);
+        this.board  = array2D(width, height, 0);
+
 //    document.getElementById("debug_text").innerHTML = "Board: " + this.board[4][0];
     }
 
-    /* Methods */
+    /* Randomize board (for testing) */
+    randomize() {
+        for (let i = 0; i < this.width; i++) {
+            for(let j = 0; j < this.height; j++) {
+                this.board[i][j] = Math.floor(Math.random() * 10);;
+            }
+        }
+    }
+
 }
 
 
