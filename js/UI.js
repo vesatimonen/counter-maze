@@ -180,6 +180,8 @@ function uiKeyPressed(event) {
         case 'D':
             move = "right";
             break;
+        default:
+            return;
     }
 
     /* Execute move on game board */
@@ -189,6 +191,9 @@ function uiKeyPressed(event) {
 
     /* Redraw frame on UI */
     uiFrameRedraw(game.board);
+
+    /* Redraw item on UI (under frame) */
+    uiItemRedraw(game.board, game.board.frame.X, game.board.frame.Y);
 }
 
 /*****************************************************************************
@@ -222,20 +227,17 @@ function uiFrameRedraw(board) {
     frameImage.src          = "images/Frame148.png";
     frameImage.style.left   = board.frame.X * gameBoardCellSize + gameBoardCellSize / 2 + "px";
     frameImage.style.top    = board.frame.Y * gameBoardCellSize + gameBoardCellSize / 2 + "px";
-    frameImage.style.height = gameBoardCellSize * 1.2 + "px";
 }
 
-// uiItemRedraw(board, x, y)
+function uiItemRedraw(board, x, y) {
+    /* Get DOM element for counter */
+    let counterImage = document.getElementById("item-" + x + "-" + y);
+    counterImage.src = "images/" + board.items[x][y] + "_shadow.png";
+//    counterImage.src = "images/" + board.items[x][y] + "_shadow.svg";
+}
 
 
 function uiBoardDraw(board) {
-
-// uiBoardCreate
-// uiBoardDraw
-// uiBoardShow
-// uiBoardRefresh
-
-
     gameGridWidth  = board.width;
     gameGridHeight = board.height;
 
@@ -249,13 +251,13 @@ function uiBoardDraw(board) {
     }
 
     /* Create grid and add number images */
-    for (i = 0; i < gameGridHeight; i++) {
+    for (y = 0; y < gameGridHeight; y++) {
         /* Create row */
         let newRow = document.createElement("div");
         newRow.className = "grid-row";
         gameBoard.appendChild(newRow);
 
-        for (j = 0; j < gameGridWidth; j++) {
+        for (x = 0; x < gameGridWidth; x++) {
             /* Create cell */
             let newCell = document.createElement("div");
             newCell.className    = "grid-cell";
@@ -266,25 +268,27 @@ function uiBoardDraw(board) {
             /* Create counter image */
             let counterImage = document.createElement("img");
             counterImage.className = "grid-image";
-            counterImage.id        = "image-" + i + "-" + j;
-//            let number = Math.floor(Math.random() * 10);
-            let number = board.items[j][i];
-//            counterImage.src       = "images/" + number + "_shadow.svg";
-            counterImage.src       = "images/" + number + "_shadow.png";
+            counterImage.id        = "item-" + x + "-" + y;
+            counterImage.src       = "";
             newCell.appendChild(counterImage);
+
+            /* Show counter image */
+            uiItemRedraw(board, x, y);
         }
     }
 
-    /* Add frame image */
+    /* Create frame image */
     let frameImage = document.createElement("img");
     frameImage.className    = "frame";
     frameImage.id           = "frame";
-    frameImage.src          = "images/Frame148.png";
+    frameImage.src          = "";
     frameImage.style.left   = board.frame.X * gameBoardCellSize + gameBoardCellSize / 2 + "px";
     frameImage.style.top    = board.frame.Y * gameBoardCellSize + gameBoardCellSize / 2 + "px";
     frameImage.style.height = gameBoardCellSize * 1.2 + "px";
-
     gameBoard.appendChild(frameImage);
+
+    /* Show frame image */
+    uiFrameRedraw(board);
 }
 
 
