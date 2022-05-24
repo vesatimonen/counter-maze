@@ -280,7 +280,7 @@ document.getElementById("button-undo"   ).addEventListener("click", uiUndo);
  *****************************************************************************/
 function uiLevelRedraw(game) {
     let levelInfo = document.getElementById("level-info");
-    levelInfo.innerHTML = game.level +
+    levelInfo.innerHTML = "L" + game.level +
                           " (" + game.moveHistory.length + "/" + (game.moveHistory.length + game.board.total) + ")";
 }
 
