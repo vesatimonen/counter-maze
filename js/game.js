@@ -144,13 +144,15 @@ class Game {
                 break;
         }
 
-        return {X: undefined,
-                Y: undefined};
+        return undefined;
     }
 
     /* Check if move is legal */
     moveIsLegal(move) {
         let place = this.moveToPlace(move);
+        if (place == undefined) {
+            return false;
+        }
 
         /* Check board limits */
         if (place.X < 0 || place.X >= this.board.width ||
@@ -183,8 +185,6 @@ class Game {
                     break;
             }
         }
-
-//document.getElementById("debug_text").innerHTML = ":" + place.X + " " + place.Y + " = " + this.board.items[place.X][place.Y];
 
         /* Check that counter is not zero */
         if (this.board.items[place.X][place.Y] == 0) {

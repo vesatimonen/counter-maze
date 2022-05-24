@@ -169,12 +169,45 @@ function uiMoveExecute(event) {
 function uiMoveEnd(event) {
     if (frame != undefined) {
         /* Snap to center of the grid (0.3 -> 0.5) */
-        frameX = (Math.round(frameX / gameBoardCellSize - 0.5) + 0.5) * gameBoardCellSize;
-        frameY = (Math.round(frameY / gameBoardCellSize - 0.5) + 0.5) * gameBoardCellSize;
+//        frameX = (Math.round(frameX / gameBoardCellSize - 0.5) + 0.5) * gameBoardCellSize;
+//        frameY = (Math.round(frameY / gameBoardCellSize - 0.5) + 0.5) * gameBoardCellSize;
+
+        /* Snap to closest position on grid */
+        X = Math.round(frameX / gameBoardCellSize - 0.5);
+        Y = Math.round(frameY / gameBoardCellSize - 0.5);
+
+        /* Deduce direction */
+        let move = "";
+        if (X - game.board.frame.X == 1 &&
+            Y - game.board.frame.Y == 0) {
+            move = "right";
+        }
+        if (X - game.board.frame.X == -1 &&
+            Y - game.board.frame.Y == 0) {
+            move = "left";
+        }
+        if (X - game.board.frame.X == 0 &&
+            Y - game.board.frame.Y == 1) {
+            move = "down";
+        }
+        if (X - game.board.frame.X == 0 &&
+            Y - game.board.frame.Y == -1) {
+            move = "up";
+        }
+
+        /* Execute move on game board */
+        game.moveExecute(move);
+
+        /* Redraw frame on UI */
+        uiFrameRedraw(game.board);
+
+        /* Redraw item on UI (under frame) */
+        uiItemRedraw(game.board, game.board.frame.X, game.board.frame.Y);
+
 
         /* Move frame */
-        frame.style.left = frameX + "px";
-        frame.style.top  = frameY + "px";
+//        frame.style.left = frameX + "px";
+//        frame.style.top  = frameY + "px";
     }
 
     frame       = undefined;
