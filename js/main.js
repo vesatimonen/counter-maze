@@ -33,7 +33,7 @@ window.addEventListener("resize", resizeGame);
  *****************************************************************************/
 var game = new Game();
 game.board.init(6, 4);
-game.board.randomize(16);
+game.board.randomize(24);
 
 
 /*****************************************************************************

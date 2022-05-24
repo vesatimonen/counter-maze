@@ -191,7 +191,6 @@ function uiMoveEnd(event) {
  *****************************************************************************/
 function uiKeyPressed(event) {
     let move = "";
-
     switch (event.key) {
         case 'ArrowUp':
         case 'w':
@@ -212,6 +211,11 @@ function uiKeyPressed(event) {
         case 'd':
         case 'D':
             move = "right";
+            break;
+        case 'Escape':
+        case 'Backspace':
+            uiUndo();
+            return;
             break;
         default:
             return;
