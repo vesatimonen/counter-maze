@@ -25,6 +25,39 @@ var moveStartY  = undefined;
 
 
 /*****************************************************************************
+ * Game progress handling
+ *****************************************************************************/
+function uiUndo() {
+    /* Save current frame position */
+    let oldX = game.board.frame.X;
+    let oldY = game.board.frame.Y;
+
+    /* Make undo if possible */
+    if (game.moveUndo() == false) {
+        return;
+    }
+
+    /* Refresh oldframe position */
+    uiFrameRedraw(game.board);
+
+    /* Redraw item on UI (under frame) */
+    uiItemRedraw(game.board, oldX, oldY);
+}
+
+function uiRestart() {
+    /* Undo all moves back */
+    while (true) {
+        if (game.moveUndo() == false) {
+            break;
+        }
+    }
+
+    /* Redraw board */
+    uiBoardRedraw(game.board);
+}
+
+
+/*****************************************************************************
  * Touch and mouse move handling
  *****************************************************************************/
 function uiMovePosition(event) {
@@ -196,6 +229,8 @@ function uiKeyPressed(event) {
     uiItemRedraw(game.board, game.board.frame.X, game.board.frame.Y);
 }
 
+
+
 /*****************************************************************************
  * Register mouse event handlers
  *****************************************************************************/
@@ -216,6 +251,12 @@ gameBoard.addEventListener("touchend",   uiMoveEnd);
  *****************************************************************************/
 document.addEventListener("keydown",     uiKeyPressed);
 
+/*****************************************************************************
+ * Register button event handlers
+ *****************************************************************************/
+document.getElementById("button-restart").addEventListener("click", uiRestart);
+document.getElementById("button-undo"   ).addEventListener("click", uiUndo);
+
 
 
 /*****************************************************************************
@@ -234,6 +275,19 @@ function uiItemRedraw(board, x, y) {
     let counterImage = document.getElementById("item-" + x + "-" + y);
     counterImage.src = "images/" + board.items[x][y] + "_shadow.png";
 //    counterImage.src = "images/" + board.items[x][y] + "_shadow.svg";
+}
+
+function uiBoardRedraw(board) {
+    /* Create grid and add number images */
+    for (y = 0; y < gameGridHeight; y++) {
+        for (x = 0; x < gameGridWidth; x++) {
+            /* Redraw item image */
+            uiItemRedraw(board, x ,y);
+        }
+    }
+
+    /* Redraw frame image */
+    uiFrameRedraw(board);
 }
 
 

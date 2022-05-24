@@ -124,7 +124,7 @@ class Game {
     }
 
     /* Convert move string to XY-place */
-    moveToPlace (move) {
+    moveToPlace(move) {
         switch (move) {
             case "up":
                 return {X: this.board.frame.X,
@@ -149,7 +149,7 @@ class Game {
     }
 
     /* Check if move is legal */
-    moveIsLegal (move) {
+    moveIsLegal(move) {
         let place = this.moveToPlace(move);
 
         /* Check board limits */
@@ -194,7 +194,7 @@ class Game {
         return true;
     }
 
-    moveExecute (move) {
+    moveExecute(move) {
         /* Check that move is legal */
         if (this.moveIsLegal(move) == false) {
             return false;
@@ -211,6 +211,37 @@ class Game {
 
         /* Save move */
         this.moveHistory.push(move);
+
+        return true;
+    }
+
+    moveUndo() {
+        /* Check if something to undo */
+        if (this.moveHistory.length == 0) {
+            return false;
+        }
+
+        /* Pop latest move */
+        let move = this.moveHistory.pop();
+
+        /* Increment counter under frame */
+        this.board.items[this.board.frame.X][this.board.frame.Y]++;
+
+        /* Move frame backwards */
+        switch (move) {
+            case "up":
+                this.board.frame.Y++;
+                break;
+            case "right":
+                this.board.frame.X--;
+                break;
+            case "down":
+                this.board.frame.Y--;
+                break;
+            case "left":
+                this.board.frame.X++;
+                break;
+        }
 
         return true;
     }

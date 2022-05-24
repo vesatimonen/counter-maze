@@ -59,7 +59,7 @@ drawGame();
 
     Ti
     --
-    + game.move -> ui.move/refresh
+    + undo
 
 */
 

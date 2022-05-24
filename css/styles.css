@@ -80,7 +80,16 @@
     /* Text position */
     font-size:          24px;
     text-align:         center;
+
+/*    box-shadow:         3px 3px 5px rgb(0,0,0); */
 }
+
+
+.button:active {
+/*    box-shadow:         none; */
+    background:         #B0DDFF;
+}
+
 
 .level {
     font-size:          32px;
