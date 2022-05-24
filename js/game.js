@@ -23,6 +23,7 @@ class Board {
         this.width  = undefined;
         this.height = undefined;
         this.items  = [[undefined]];
+        this.total  = undefined;
         this.frame  = {X: undefined,
                        Y: undefined};
     }
@@ -32,6 +33,7 @@ class Board {
         this.width   = width;
         this.height  = height;
         this.items   = array2D(width, height, 0);
+        this.total   = 0;
         this.frame.X = 0;
         this.frame.Y = 0;
     }
@@ -94,6 +96,7 @@ class Board {
 
             /* Make move */
             this.items[newX][newY]++;
+            this.total++;
             oldX = currX;
             oldY = currY;
             currX = newX;
@@ -119,6 +122,8 @@ class Game {
 
         /* Game move history */
         this.moveHistory = [];
+
+        this.level = 0;
 
 //        document.getElementById("debug_text").innerHTML = "Board created: " + this.moveOptions;
     }
@@ -208,6 +213,7 @@ class Game {
 
         /* Decrement counter */
         this.board.items[place.X][place.Y]--;
+        this.board.total--;
 
         /* Save move */
         this.moveHistory.push(move);
@@ -226,6 +232,7 @@ class Game {
 
         /* Increment counter under frame */
         this.board.items[this.board.frame.X][this.board.frame.Y]++;
+        this.board.total++;
 
         /* Move frame backwards */
         switch (move) {

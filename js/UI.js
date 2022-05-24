@@ -28,20 +28,13 @@ var moveStartY  = undefined;
  * Game progress handling
  *****************************************************************************/
 function uiUndo() {
-    /* Save current frame position */
-    let oldX = game.board.frame.X;
-    let oldY = game.board.frame.Y;
-
     /* Make undo if possible */
     if (game.moveUndo() == false) {
         return;
     }
 
-    /* Refresh oldframe position */
-    uiFrameRedraw(game.board);
-
-    /* Redraw item on UI (under frame) */
-    uiItemRedraw(game.board, oldX, oldY);
+    /* Redraw board */
+    uiBoardRedraw(game.board);
 }
 
 function uiRestart() {
@@ -168,10 +161,6 @@ function uiMoveExecute(event) {
 
 function uiMoveEnd(event) {
     if (frame != undefined) {
-        /* Snap to center of the grid (0.3 -> 0.5) */
-//        frameX = (Math.round(frameX / gameBoardCellSize - 0.5) + 0.5) * gameBoardCellSize;
-//        frameY = (Math.round(frameY / gameBoardCellSize - 0.5) + 0.5) * gameBoardCellSize;
-
         /* Snap to closest position on grid */
         X = Math.round(frameX / gameBoardCellSize - 0.5);
         Y = Math.round(frameY / gameBoardCellSize - 0.5);
@@ -198,18 +187,11 @@ function uiMoveEnd(event) {
         /* Execute move on game board */
         game.moveExecute(move);
 
-        /* Redraw frame on UI */
-        uiFrameRedraw(game.board);
-
-        /* Redraw item on UI (under frame) */
-        uiItemRedraw(game.board, game.board.frame.X, game.board.frame.Y);
-
-
-        /* Move frame */
-//        frame.style.left = frameX + "px";
-//        frame.style.top  = frameY + "px";
+        /* Redraw board */
+        uiBoardRedraw(game.board);
     }
 
+    /* Cancel move */
     frame       = undefined;
     frameStartX = undefined;
     frameStartY = undefined;
@@ -259,11 +241,8 @@ function uiKeyPressed(event) {
         return;
     }
 
-    /* Redraw frame on UI */
-    uiFrameRedraw(game.board);
-
-    /* Redraw item on UI (under frame) */
-    uiItemRedraw(game.board, game.board.frame.X, game.board.frame.Y);
+    /* Redraw board */
+    uiBoardRedraw(game.board);
 }
 
 
@@ -297,7 +276,16 @@ document.getElementById("button-undo"   ).addEventListener("click", uiUndo);
 
 
 /*****************************************************************************
- * Create board elements
+ * Redraw level elements
+ *****************************************************************************/
+function uiLevelRedraw(game) {
+    let levelInfo = document.getElementById("level-info");
+    levelInfo.innerHTML = game.level +
+                          " (" + game.moveHistory.length + "/" + (game.moveHistory.length + game.board.total) + ")";
+}
+
+/*****************************************************************************
+ * Redraw board elements
  *****************************************************************************/
 function uiFrameRedraw(board) {
     /* Get DOM element for frame */
@@ -325,9 +313,15 @@ function uiBoardRedraw(board) {
 
     /* Redraw frame image */
     uiFrameRedraw(board);
+
+    /* Redraw level info */
+    uiLevelRedraw(game);
 }
 
 
+/*****************************************************************************
+ * Create board elements
+ *****************************************************************************/
 function uiBoardDraw(board) {
     gameGridWidth  = board.width;
     gameGridHeight = board.height;
@@ -362,9 +356,6 @@ function uiBoardDraw(board) {
             counterImage.id        = "item-" + x + "-" + y;
             counterImage.src       = "";
             newCell.appendChild(counterImage);
-
-            /* Show counter image */
-            uiItemRedraw(board, x, y);
         }
     }
 
@@ -378,8 +369,8 @@ function uiBoardDraw(board) {
     frameImage.style.height = gameBoardCellSize * 1.2 + "px";
     gameBoard.appendChild(frameImage);
 
-    /* Show frame image */
-    uiFrameRedraw(board);
+    /* Redraw board */
+    uiBoardRedraw(board);
 }
 
 
