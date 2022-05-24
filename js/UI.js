@@ -157,47 +157,38 @@ function uiMoveEnd(event) {
  * Keyboard input handling
  *****************************************************************************/
 function uiKeyPressed(event) {
-
-    let frame = document.getElementById("frame");
+    let move = "";
 
     switch (event.key) {
         case 'ArrowUp':
         case 'w':
         case 'W':
-            if (game.moveExecute("up") == false) {
-                return;
-            }
-
-            frame.style.top = parseInt(frame.style.top, 10) - gameBoardCellSize + "px";
+            move = "up";
             break;
         case 'ArrowDown':
         case 's':
         case 'S':
-            if (game.moveExecute("down") == false) {
-                return;
-            }
-
-            frame.style.top = parseInt(frame.style.top, 10) + gameBoardCellSize + "px";
+            move = "down";
             break;
         case 'ArrowLeft':
         case 'a':
         case 'A':
-            if (game.moveExecute("left") == false) {
-                return;
-            }
-
-            frame.style.left = parseInt(frame.style.left, 10) - gameBoardCellSize + "px";
+            move = "left";
             break;
         case 'ArrowRight':
         case 'd':
         case 'D':
-            if (game.moveExecute("right") == false) {
-                return;
-            }
-
-            frame.style.left = parseInt(frame.style.left, 10) + gameBoardCellSize + "px";
+            move = "right";
             break;
     }
+
+    /* Execute move on game board */
+    if (game.moveExecute(move) == false) {
+        return;
+    }
+
+    /* Redraw frame on UI */
+    uiFrameRedraw(game.board);
 }
 
 /*****************************************************************************
@@ -221,25 +212,41 @@ gameBoard.addEventListener("touchend",   uiMoveEnd);
 document.addEventListener("keydown",     uiKeyPressed);
 
 
+
 /*****************************************************************************
- * Register keyboard event handlers
+ * Create board elements
  *****************************************************************************/
-function uiDrawBoard(board) {
+function uiFrameRedraw(board) {
+    /* Get DOM element for frame */
+    let frameImage = document.getElementById("frame");
+    frameImage.src          = "images/Frame148.png";
+    frameImage.style.left   = board.frame.X * gameBoardCellSize + gameBoardCellSize / 2 + "px";
+    frameImage.style.top    = board.frame.Y * gameBoardCellSize + gameBoardCellSize / 2 + "px";
+    frameImage.style.height = gameBoardCellSize * 1.2 + "px";
+}
+
+// uiItemRedraw(board, x, y)
+
+
+function uiBoardDraw(board) {
+
+// uiBoardCreate
+// uiBoardDraw
+// uiBoardShow
+// uiBoardRefresh
+
 
     gameGridWidth  = board.width;
     gameGridHeight = board.height;
 
     /* Get board current size */
-    gameBoardWidth = gameBoard.clientWidth;
+    gameBoardWidth    = gameBoard.clientWidth;
+    gameBoardCellSize = gameBoard.clientWidth / gameGridWidth;
 
-    /* Clear grid */
+    /* Clear elements in board */
     while (gameBoard.firstChild) {
         gameBoard.removeChild(gameBoard.firstChild);
     }
-
-    /* Calculate cell size */
-
-    gameBoardCellSize = gameBoardWidth / gameGridWidth;
 
     /* Create grid and add number images */
     for (i = 0; i < gameGridHeight; i++) {
@@ -256,28 +263,28 @@ function uiDrawBoard(board) {
             newCell.style.height = gameBoardCellSize + "px";
             newRow.appendChild(newCell);
 
-            /* Create image */
-            let newImage = document.createElement("img");
-            newImage.className = "grid-image";
-            newImage.id        = "image-" + i + "-" + j;
+            /* Create counter image */
+            let counterImage = document.createElement("img");
+            counterImage.className = "grid-image";
+            counterImage.id        = "image-" + i + "-" + j;
 //            let number = Math.floor(Math.random() * 10);
             let number = board.items[j][i];
-//            newImage.src       = "images/" + number + "_shadow.svg";
-            newImage.src       = "images/" + number + "_shadow.png";
-            newCell.appendChild(newImage);
+//            counterImage.src       = "images/" + number + "_shadow.svg";
+            counterImage.src       = "images/" + number + "_shadow.png";
+            newCell.appendChild(counterImage);
         }
     }
 
-    /* Add frame */
-    let newImage = document.createElement("img");
-    newImage.className    = "frame";
-    newImage.id           = "frame";
-    newImage.src          = "images/Frame148.png";
-    newImage.style.left   = board.frame.X * gameBoardCellSize + gameBoardCellSize / 2 + "px";
-    newImage.style.top    = board.frame.Y * gameBoardCellSize + gameBoardCellSize / 2 + "px";
-    newImage.style.height = gameBoardCellSize * 1.2 + "px";
+    /* Add frame image */
+    let frameImage = document.createElement("img");
+    frameImage.className    = "frame";
+    frameImage.id           = "frame";
+    frameImage.src          = "images/Frame148.png";
+    frameImage.style.left   = board.frame.X * gameBoardCellSize + gameBoardCellSize / 2 + "px";
+    frameImage.style.top    = board.frame.Y * gameBoardCellSize + gameBoardCellSize / 2 + "px";
+    frameImage.style.height = gameBoardCellSize * 1.2 + "px";
 
-    gameBoard.appendChild(newImage);
+    gameBoard.appendChild(frameImage);
 }
 
 

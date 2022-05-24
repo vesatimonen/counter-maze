@@ -215,11 +215,6 @@ class Game {
         return true;
     }
 
-    // moveUndo() ???
-    // legalMovesList ???
-    // refresh counters after move
-
-
 }
 
 

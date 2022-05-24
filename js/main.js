@@ -7,7 +7,7 @@ function hideGame() {
 }
 
 function drawGame() {
-    uiDrawBoard(game.board);
+    uiBoardDraw(game.board);
 }
 
 function showGame() {
@@ -50,6 +50,17 @@ drawGame();
     //document.getElementById("debug_text").innerHTML = ": " + test;
 
     game.init(savepoint);
+
+
+    // moveUndo() ???
+    // legalMovesList ???
+    // refresh counters after move
+
+
+    Ti
+    --
+    + game.move -> ui.move/refresh
+
 */
 
 
