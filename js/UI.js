@@ -53,6 +53,27 @@ function uiRestart() {
 /*****************************************************************************
  * Touch and mouse move handling
  *****************************************************************************/
+function uiMoveDirection(x0, y0, x1, y1) {
+    if (x0 - x1 == 1 &&
+        y0 - y1 == 0) {
+        return "right";
+    }
+    if (x0 - x1 == -1 &&
+        y0 - y1 == 0) {
+        return "left";
+    }
+    if (x0 - x1 == 0 &&
+        y0 - y1 == 1) {
+        return "down";
+    }
+    if (x0 - x1 == 0 &&
+        y0 - y1 == -1) {
+        return "up";
+    }
+
+    return "";
+}
+
 function uiMovePosition(event) {
     let X, Y;
 
@@ -161,33 +182,17 @@ function uiMoveExecute(event) {
     }
 }
 
+
 function uiMoveEnd(event) {
     if (frame != undefined) {
+        /* Snap to closest integer position on grid */
         let frameX = parseInt(frame.style.left, 10);
         let frameY = parseInt(frame.style.top, 10);
-
-        /* Snap to closest position on grid */
         X = Math.round(frameX / gameBoardCellSize - 0.5);
         Y = Math.round(frameY / gameBoardCellSize - 0.5);
 
-        /* Deduce direction */
-        let move = "";
-        if (X - game.board.frame.X == 1 &&
-            Y - game.board.frame.Y == 0) {
-            move = "right";
-        }
-        if (X - game.board.frame.X == -1 &&
-            Y - game.board.frame.Y == 0) {
-            move = "left";
-        }
-        if (X - game.board.frame.X == 0 &&
-            Y - game.board.frame.Y == 1) {
-            move = "down";
-        }
-        if (X - game.board.frame.X == 0 &&
-            Y - game.board.frame.Y == -1) {
-            move = "up";
-        }
+        /* Find out move direction */
+        let move = uiMoveDirection(X, Y, game.board.frame.X, game.board.frame.Y);
 
         /* Execute move on game board */
         game.moveExecute(move);
@@ -284,9 +289,6 @@ function uiButtonsRedraw(game) {
     } else {
         buttonUndo.disabled = false;
     }
-//document.getElementById("debug_text").innerHTML = buttonRestart.opacity;
-
-
 }
 
 /*****************************************************************************
