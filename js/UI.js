@@ -80,6 +80,10 @@ function uiMovePosition(event) {
             return undefined;
     }
 
+    let rect = gameBoard.getBoundingClientRect()
+    X -= rect.left;
+    Y -= rect.top;
+
     return {X, Y};
 }
 
@@ -113,6 +117,14 @@ function uiMoveExecute(event) {
         if (move == undefined) {
             return;
         }
+
+/*
+        frame.style.left = move.X + "px";
+        frame.style.top  = move.Y + "px";
+document.getElementById("debug_text").innerHTML = ":" + move.X + "/" + move.Y;
+
+return;
+*/
 
         /* Check frame grid limits */
         let deltaX = move.X - moveStartX;
