@@ -58,61 +58,20 @@
 }
 */
 
-/*** Game controls ***/
-#game-controls {
+
+/*** Game title ***/
+#game-title {
     margin-top:     10px;
 
-    display:        flex;
-}
-
-#game-controls:after {
-    content:        "";
-    clear:          both;
-    display:        block;
-}
-
-.button {
-    /* Behaviour */
-    display:        block;
-
-    /* Appearance */
-    color:          #000000;
-    background:     #67BFEC;
-    border:         var(--border_style);
-    border-radius:  var(--border_radius);
-
-    /* Size */
-    width:          64px;
-    height:         40px;
-    padding:        0;
-
-    /* Text position */
-    font-size:      24px;
-    text-align:     center;
-
-/*    box-shadow:         3px 3px 5px rgb(0,0,0); */
-}
-
-
-.button:active {
-/*    box-shadow:         none; */
-    background:     #B0DDFF;
-}
-
-.button:disabled {
-    opacity: 0.3;
-}
-
-.level {
-    font-size:      28px;
+    font-size:      36px;
     font-weight:    bold;
 
-    margin:         auto;
+    text-align:     center;
 }
 
 /*** Game board ***/
 #game-board {
-    margin-top:     5px;
+    margin-top:     10px;
 
     background:     #67BFEC;
 
@@ -149,7 +108,6 @@
     display:        block;
 }
 
-
 .frame {
     position:       absolute;
     transform:      translate(-50%, -50%);
@@ -158,28 +116,71 @@
     touch-action:   none;
 }
 
-/*** Game copyright ***/
-#game-copyright {
-    margin-top:     1px;
 
-    font-size:      12px;
-    text-align:     center;
-}
-
-/*** Game title ***/
-#game-title {
+/*** Game controls ***/
+#game-controls {
     margin-top:     10px;
 
-    font-size:      36px;
-    font-weight:    bold;
+    display:        flex;
+}
 
+#game-controls:after {
+    content:        "";
+    clear:          both;
+    display:        block;
+}
+
+.button {
+    /* Behaviour */
+    display:        block;
+
+    /* Appearance */
+    color:          #000000;
+    background:     #67BFEC;
+    border:         var(--border_style);
+    border-radius:  var(--border_radius);
+
+    /* Size */
+    width:          64px;
+    height:         40px;
+    padding:        0;
+
+    /* Text position */
+    font-size:      24px;
     text-align:     center;
+
+/*    box-shadow:         3px 3px 5px rgb(0,0,0); */
+}
+
+.button:active:enabled {
+/*    box-shadow:         none; */
+    background:     #B0DDFF;
+}
+
+.button:disabled {
+    opacity: 0.3;
+}
+
+#game-info {
+    font-size:      28px;
+    font-weight:    bold;
+    text-align:     center;
+
+    margin:         auto;
 }
 
 /*** Game instructions ***/
 #game-instructions {
-    margin-top:     5px;
+    margin-top:     10px;
 
     font-size:      18px;
+    text-align:     center;
+}
+
+/*** Game copyright ***/
+#game-copyright {
+    margin-top:     10px;
+
+    font-size:      12px;
     text-align:     center;
 }

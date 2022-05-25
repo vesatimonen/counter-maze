@@ -10,10 +10,6 @@ const buttonUndo     = document.getElementById("button-undo");
 var   gameBoardWidth = gameBoard.clientWidth;
 var   gameBoardCellSize;
 
-var   gameGridWidth;
-var   gameGridHeight;
-
-
 
 /*****************************************************************************
  * Move variables
@@ -34,10 +30,18 @@ function uiUndo() {
     }
 
     /* Redraw board */
-    uiBoardRedraw(game.board);
+    uiGameRedraw(game);
 }
 
 function uiRestart() {
+    /* Check if already at the beginning -> previous level */
+    if (game.moveHistory.length == 0) {
+        if (game.level > 0) {
+            uiStartLevel(game.level - 1);
+        }
+        return;
+    }
+
     /* Undo all moves back */
     while (true) {
         if (game.moveUndo() == false) {
@@ -46,7 +50,7 @@ function uiRestart() {
     }
 
     /* Redraw board */
-    uiBoardRedraw(game.board);
+    uiGameRedraw(game);
 }
 
 
@@ -190,7 +194,7 @@ function uiMoveEnd(event) {
         }
 
         /* Redraw board */
-        uiBoardRedraw(game.board);
+        uiGameRedraw(game);
     }
 
     /* End move */
@@ -201,7 +205,7 @@ function uiMoveEnd(event) {
 
 function uiMoveCancel(event) {
     /* Redraw board */
-    uiBoardRedraw(game.board);
+    uiGameRedraw(game);
 
     /* End move */
     frame       = undefined;
@@ -250,7 +254,7 @@ function uiKeyPressed(event) {
     }
 
     /* Redraw board */
-    uiBoardRedraw(game.board);
+    uiGameRedraw(game);
 }
 
 
@@ -291,14 +295,21 @@ function uiButtonsRedraw(game) {
     } else {
         buttonUndo.disabled = false;
     }
+
+
+    if (game.level == 0 && game.moveHistory.length == 0) {
+        buttonRestart.disabled = true;
+    } else {
+        buttonRestart.disabled = false;
+    }
 }
 
 /*****************************************************************************
  * Redraw level elements
  *****************************************************************************/
-function uiLevelRedraw(game) {
-    let levelInfo = document.getElementById("level-info");
-    levelInfo.innerHTML = "L" + game.level +
+function uiInfoRedraw(game) {
+    let gameInfo = document.getElementById("game-info");
+    gameInfo.innerHTML = "L" + game.level +
                           " (" + game.moveHistory.length + "/" + (game.moveHistory.length + game.board.total) + ")";
 }
 
@@ -322,8 +333,8 @@ function uiItemRedraw(board, x, y) {
 
 function uiBoardRedraw(board) {
     /* Create grid and add number images */
-    for (y = 0; y < gameGridHeight; y++) {
-        for (x = 0; x < gameGridWidth; x++) {
+    for (y = 0; y < board.height; y++) {
+        for (x = 0; x < board.width; x++) {
             /* Redraw item image */
             uiItemRedraw(board, x ,y);
         }
@@ -332,11 +343,38 @@ function uiBoardRedraw(board) {
     /* Redraw frame image */
     uiFrameRedraw(board);
 
-    /* Redraw level info */
-    uiLevelRedraw(game);
+    /* Redraw info */
+    uiInfoRedraw(game);
 
     /* Redraw buttons */
     uiButtonsRedraw(game);
+}
+
+function uiGameRedraw(game) {
+    /* Redraw game board */
+    uiBoardRedraw(game.board);
+
+    /* Check if end of level */
+    if (game.board.total == 0) {
+        setTimeout(function() {
+            uiStartLevel(game.level + 1);
+        }, 500);
+    }
+}
+
+function uiStartLevel(level) {
+    if (level < gameLevels.length) {
+        /* Use predefined levels */
+        game.init(level,
+                  gameLevels[level].width, gameLevels[level].height,
+                  gameLevels[level].moves);
+    } else {
+        game.init(level,
+                  gameLevels[gameLevels.length - 1].width,
+                  gameLevels[gameLevels.length - 1].height,
+                  gameLevels[gameLevels.length - 1].moves + (level - gameLevels.length) + 1);
+    }
+    uiBoardDraw(game.board);
 }
 
 
@@ -344,12 +382,9 @@ function uiBoardRedraw(board) {
  * Create board elements
  *****************************************************************************/
 function uiBoardDraw(board) {
-    gameGridWidth  = board.width;
-    gameGridHeight = board.height;
-
     /* Get board current size */
     gameBoardWidth    = gameBoard.clientWidth;
-    gameBoardCellSize = gameBoard.clientWidth / gameGridWidth;
+    gameBoardCellSize = gameBoard.clientWidth / board.width;
 
     /* Clear elements in board */
     while (gameBoard.firstChild) {
@@ -357,13 +392,13 @@ function uiBoardDraw(board) {
     }
 
     /* Create grid and add number images */
-    for (y = 0; y < gameGridHeight; y++) {
+    for (y = 0; y < board.height; y++) {
         /* Create row */
         let newRow = document.createElement("div");
         newRow.className = "grid-row";
         gameBoard.appendChild(newRow);
 
-        for (x = 0; x < gameGridWidth; x++) {
+        for (x = 0; x < board.width; x++) {
             /* Create cell */
             let newCell = document.createElement("div");
             newCell.className    = "grid-cell";

@@ -13,41 +13,32 @@
 
     <!-- BODY -->
     <body id="game-screen">
-
-        <!-- CONTROLS -->
-        <div id="game-controls">
-
-<!--
-          <a id="button-restart" class="button" style="float:left;">|<<</a>
-          <a id="level-info" class="level"></a>
-          <a id="button-undo" class="button" style="float:right;"><<</a>
- -->
-
-          <button id="button-restart" class="button" style="float:left;">|<<</button>
-          <a id="level-info" class="level"></a>
-          <button id="button-undo" class="button" style="float:right;"><<</button>
-
+        <!-- TITLE -->
+        <div id="game-title">
+            COUNTER MAZE
         </div>
 
         <!-- GAME BOARD -->
         <div id="game-board">
         </div>
 
-        <!-- COPYRIGHT -->
-        <div id="game-copyright">
-            &copy; Copyright Timo Jokitalo, Vesa Timonen
-        </div>
-
-        <!-- TITLE -->
-        <div id="game-title">
-            COUNTER MAZE
+        <!-- CONTROLS -->
+        <div id="game-controls">
+          <button id="button-restart" class="button" style="float:left;">|<<</button>
+          <a id="game-info"></a>
+          <button id="button-undo" class="button" style="float:right;"><<</button>
         </div>
 
         <!-- INSTRUCTIONS -->
         <div id="game-instructions">
-            Use your arrow keys to move the tile (backspace to undo).
+            Use arrow keys to move the tile (backspace to undo).
             When the tile will go to new place a counter below will be decremented.
             Target is to get all counters to zero.
+        </div>
+
+        <!-- COPYRIGHT -->
+        <div id="game-copyright">
+            &copy; 2022 Timo Jokitalo, Vesa Timonen
         </div>
 
         <p id="debug_text"></p>

@@ -103,6 +103,7 @@ class Board {
 
     /* Initialize game */
     init(width, height, moves) {
+
         this.width   = width;
         this.height  = height;
         this.items   = array2D(width, height, 0);
@@ -120,19 +121,24 @@ class Game {
         /* Game board */
         this.board = new Board();
 
-        /* Possible move options */
-        this.moveOptions = ["up", "right", "down", "left"];
-
         /* Game move history */
         this.moveHistory = [];
+        this.moveOptions = ["up", "right", "down", "left"];
 
+        /* Game level */
         this.level = 0;
 
 //        document.getElementById("debug_text").innerHTML = "Board created: " + this.moveOptions;
     }
 
-    init(width, height, level, moves) {
+    init(level, width, height, moves) {
+        /* Clear move history */
+        this.moveHistory = [];
+
+        /* Initialize board */
         this.board.init(width, height, moves);
+
+        /* Set level */
         this.level = level;
     }
 
