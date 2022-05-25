@@ -52,34 +52,34 @@
 
 /*** Game controls ***/
 #game-controls {
-    margin-top:         10px;
+    margin-top:     10px;
 
-    display:            flex;
+    display:        flex;
 }
 
 #game-controls:after {
-    content:            "";
-    clear:              both;
-    display:            block;
+    content:        "";
+    clear:          both;
+    display:        block;
 }
 
 .button {
-    display:            block;
+    display:        block;
 
-    color:              #000000;
-    background:         #67BFEC;
+    color:          #000000;
+    background:     #67BFEC;
 
-    border:             var(--border_style);
-    border-radius:      var(--border_radius);
+    border:         var(--border_style);
+    border-radius:  var(--border_radius);
 
     /* Size */
-    width:              60px;
-    height:             30px;
-    line-height:        32px;
+    width:          60px;
+    height:         30px;
+    line-height:    32px;
 
     /* Text position */
-    font-size:          24px;
-    text-align:         center;
+    font-size:      24px;
+    text-align:     center;
 
 /*    box-shadow:         3px 3px 5px rgb(0,0,0); */
 }
@@ -87,32 +87,27 @@
 
 .button:active {
 /*    box-shadow:         none; */
-    background:         #B0DDFF;
+    background:     #B0DDFF;
 }
 
 
 .level {
-    font-size:          32px;
-    font-weight:        bold;
+    font-size:      32px;
+    font-weight:    bold;
 
-    margin:             auto;
+    margin:         auto;
 }
 
 /*** Game board ***/
 #game-board {
-    margin-top:         5px;
+    margin-top:     5px;
 
-    background:         #67BFEC;
+    background:     #67BFEC;
 
-/*
-    background-image:   url("../images/background1200.png");
-    background-repeat:  repeat;
-*/
+    border:         var(--border_style);
+    border-radius:  var(--border_radius);
 
-    border:             var(--border_style);
-    border-radius:      var(--border_radius);
-
-    position:           relative;
+    position:       relative;
 
     /* Disable scroll with touch */
     touch-action:   none;

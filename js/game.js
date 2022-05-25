@@ -28,16 +28,6 @@ class Board {
                        Y: undefined};
     }
 
-    /* Initialize game */
-    init(width, height) {
-        this.width   = width;
-        this.height  = height;
-        this.items   = array2D(width, height, 0);
-        this.total   = 0;
-        this.frame.X = 0;
-        this.frame.Y = 0;
-    }
-
     /* Randomize board (for testing) */
     randomize(moves) {
         /* Start position */
@@ -110,6 +100,19 @@ class Board {
 
 //        document.getElementById("debug_text").innerHTML = "Board created: " + this.frame.X;
     }
+
+    /* Initialize game */
+    init(width, height, moves) {
+        this.width   = width;
+        this.height  = height;
+        this.items   = array2D(width, height, 0);
+        this.total   = 0;
+        this.frame.X = 0;
+        this.frame.Y = 0;
+
+        this.randomize(moves);
+    }
+
 }
 
 class Game {
@@ -126,6 +129,11 @@ class Game {
         this.level = 0;
 
 //        document.getElementById("debug_text").innerHTML = "Board created: " + this.moveOptions;
+    }
+
+    init(width, height, level, moves) {
+        this.board.init(width, height, moves);
+        this.level = level;
     }
 
     /* Convert move string to XY-place */
