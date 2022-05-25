@@ -17,11 +17,7 @@ var   gameGridHeight;
 var frame       = undefined;
 var frameStartX = undefined;
 var frameStartY = undefined;
-var frameX      = undefined;
-var frameY      = undefined;
 
-var moveStartX  = undefined;
-var moveStartY  = undefined;
 
 
 /*****************************************************************************
@@ -104,10 +100,6 @@ function uiMoveStart(event) {
     frame       = event.target;
     frameStartX = parseInt(frame.style.left, 10);
     frameStartY = parseInt(frame.style.top, 10);
-    frameX      = frameStartX;
-    frameY      = frameStartY;
-    moveStartX  = move.X;
-    moveStartY  = move.Y;
 }
 
 function uiMoveExecute(event) {
@@ -118,17 +110,9 @@ function uiMoveExecute(event) {
             return;
         }
 
-/*
-        frame.style.left = move.X + "px";
-        frame.style.top  = move.Y + "px";
-document.getElementById("debug_text").innerHTML = ":" + move.X + "/" + move.Y;
-
-return;
-*/
-
         /* Check frame grid limits */
-        let deltaX = move.X - moveStartX;
-        let deltaY = move.Y - moveStartY;
+        let deltaX = move.X - frameStartX;
+        let deltaY = move.Y - frameStartY;
         if (deltaX > gameBoardCellSize) {
             deltaX = gameBoardCellSize;
         }
@@ -143,6 +127,8 @@ return;
         }
 
         /* Select horizontal or vertical direction */
+        let frameX = 0;
+        let frameY = 0;
         if (Math.abs(deltaX) > Math.abs(deltaY)) {
             frameX = frameStartX + deltaX;
             frameY = frameStartY;
@@ -173,6 +159,9 @@ return;
 
 function uiMoveEnd(event) {
     if (frame != undefined) {
+        let frameX = parseInt(frame.style.left, 10);
+        let frameY = parseInt(frame.style.top, 10);
+
         /* Snap to closest position on grid */
         X = Math.round(frameX / gameBoardCellSize - 0.5);
         Y = Math.round(frameY / gameBoardCellSize - 0.5);
@@ -207,10 +196,6 @@ function uiMoveEnd(event) {
     frame       = undefined;
     frameStartX = undefined;
     frameStartY = undefined;
-    frameX      = undefined;
-    frameY      = undefined;
-    moveStartX  = undefined;
-    moveStartY  = undefined;
 }
 
 /*****************************************************************************
