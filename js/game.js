@@ -43,7 +43,14 @@ class Board {
         let newY = 0;
         while (moves > 0) {
             /* Random legal move */
+            let tryCount = 0;
             while (true) {
+                /* Check if timeout */
+                tryCount++;
+                if (tryCount > 1000) {
+                    return false;
+                }
+
                 let direction = Math.floor(Math.random() * 4);
                 switch (direction) {
                     case 0: /* Up */
@@ -98,22 +105,30 @@ class Board {
         this.frame.X = startX;
         this.frame.Y = startY;
 
-//        document.getElementById("debug_text").innerHTML = "Board created: " + this.frame.X;
+        return true;
     }
 
     /* Initialize game */
     init(width, height, moves) {
+        let tryCount = 0;
+        while (true) {
+            tryCount++;
+            if (tryCount > 1000) {
+                return false;
+            }
 
-        this.width   = width;
-        this.height  = height;
-        this.items   = array2D(width, height, 0);
-        this.total   = 0;
-        this.frame.X = 0;
-        this.frame.Y = 0;
+            this.width   = width;
+            this.height  = height;
+            this.items   = array2D(width, height, 0);
+            this.total   = 0;
+            this.frame.X = 0;
+            this.frame.Y = 0;
 
-        this.randomize(moves);
+            if (this.randomize(moves) == true) {
+                break;
+            }
+        }
     }
-
 }
 
 class Game {
@@ -266,7 +281,6 @@ class Game {
 
         return true;
     }
-
 }
 
 

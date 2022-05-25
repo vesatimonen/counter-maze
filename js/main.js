@@ -31,11 +31,28 @@ window.addEventListener("resize", resizeGame);
  * Game levels
  *****************************************************************************/
 var gameLevels = [
-    {width: 3, height: 3, moves: 4}, /* Level 0 */
-    {width: 3, height: 3, moves: 5},
+/*
+    {width: 3, height: 3, moves: 4},
+    {width: 3, height: 3, moves: 8},
+
+    {width: 4, height: 4, moves: 12},
+    {width: 3, height: 3, moves: 12},
+
+    {width: 4, height: 4, moves: 16},
+    {width: 3, height: 3, moves: 16},
+
+    {width: 4, height: 4, moves: 20},
+    {width: 3, height: 3, moves: 20},
+
+    {width: 4, height: 4, moves: 24},
+    {width: 3, height: 3, moves: 24},
+*/
+
+//    {width: 4, height: 4, moves: 28},
+    {width: 3, height: 3, moves: 28},
+
 ];
 
-document.getElementById("debug_text").innerHTML = gameLevels[1].moves;
 
 
 /*****************************************************************************

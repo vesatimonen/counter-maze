@@ -296,7 +296,6 @@ function uiButtonsRedraw(game) {
         buttonUndo.disabled = false;
     }
 
-
     if (game.level == 0 && game.moveHistory.length == 0) {
         buttonRestart.disabled = true;
     } else {
@@ -372,7 +371,7 @@ function uiStartLevel(level) {
         game.init(level,
                   gameLevels[gameLevels.length - 1].width,
                   gameLevels[gameLevels.length - 1].height,
-                  gameLevels[gameLevels.length - 1].moves + (level - gameLevels.length) + 1);
+                  gameLevels[gameLevels.length - 1].moves + ((level - gameLevels.length) + 1) * 4);
     }
     uiBoardDraw(game.board);
 }
