@@ -387,7 +387,7 @@ function uiBoardDraw(board) {
     frameImage.src          = "";
     frameImage.style.left   = board.frame.X * gameBoardCellSize + gameBoardCellSize / 2 + "px";
     frameImage.style.top    = board.frame.Y * gameBoardCellSize + gameBoardCellSize / 2 + "px";
-    frameImage.style.height = gameBoardCellSize * 1.2 + "px";
+    frameImage.style.height = gameBoardCellSize * 1.25 + "px";
     gameBoard.appendChild(frameImage);
 
     /* Redraw board */
