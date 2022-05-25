@@ -3,6 +3,10 @@
  *****************************************************************************/
 const gameScreen     = document.getElementById("game-screen");
 const gameBoard      = document.getElementById("game-board");
+const buttonRestart  = document.getElementById("button-restart");
+const buttonUndo     = document.getElementById("button-undo");
+
+
 var   gameBoardWidth = gameBoard.clientWidth;
 var   gameBoardCellSize;
 
@@ -267,10 +271,23 @@ document.addEventListener("keydown",     uiKeyPressed);
 /*****************************************************************************
  * Register button event handlers
  *****************************************************************************/
-document.getElementById("button-restart").addEventListener("click", uiRestart);
-document.getElementById("button-undo"   ).addEventListener("click", uiUndo);
+buttonRestart.addEventListener("click", uiRestart);
+buttonUndo.addEventListener("click", uiUndo);
 
 
+/*****************************************************************************
+ * Redraw buttons
+ *****************************************************************************/
+function uiButtonsRedraw(game) {
+    if (game.moveHistory.length == 0) {
+        buttonUndo.disabled = true;
+    } else {
+        buttonUndo.disabled = false;
+    }
+//document.getElementById("debug_text").innerHTML = buttonRestart.opacity;
+
+
+}
 
 /*****************************************************************************
  * Redraw level elements
@@ -313,6 +330,9 @@ function uiBoardRedraw(board) {
 
     /* Redraw level info */
     uiLevelRedraw(game);
+
+    /* Redraw buttons */
+    uiButtonsRedraw(game);
 }
 
 

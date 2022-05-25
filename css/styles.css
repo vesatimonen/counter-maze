@@ -24,13 +24,13 @@
 
     /* Disable touch zoom */
              touch-action: pan-y;
+
+    /* Default font */
+    font-family:        Courier New, monospace;
 }
 
 /*** Game screen ***/
 #game-screen {
-    /* Default font */
-    font-family:        Courier New, monospace;
-
     /* Screen size */
     width:              calc(100vw - 20px);
     max-width:          480px;
@@ -64,18 +64,19 @@
 }
 
 .button {
+    /* Behaviour */
     display:        block;
 
+    /* Appearance */
     color:          #000000;
     background:     #67BFEC;
-
     border:         var(--border_style);
     border-radius:  var(--border_radius);
 
     /* Size */
-    width:          60px;
-    height:         30px;
-    line-height:    32px;
+    width:          64px;
+    height:         40px;
+    padding:        0;
 
     /* Text position */
     font-size:      24px;
@@ -90,6 +91,9 @@
     background:     #B0DDFF;
 }
 
+.button:disabled {
+    opacity: 0.3;
+}
 
 .level {
     font-size:      32px;
