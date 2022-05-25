@@ -157,20 +157,15 @@ function uiMoveExecute(event) {
         }
 
         /* Select horizontal or vertical direction */
-        let frameX = 0;
-        let frameY = 0;
-        if (Math.abs(deltaX) > Math.abs(deltaY)) {
-            frameX = frameStartX + deltaX;
-            frameY = frameStartY;
-        } else {
-            frameX = frameStartX;
-            frameY = frameStartY + deltaY;
-        }
-
-        /* Check if legal move */
-        move = uiMoveDirection(frameX, frameY, frameStartX, frameStartY);
-        if (game.moveIsLegal(move) == false) {
-            return;
+        let frameX = frameStartX + deltaX;
+        let frameY = frameStartY + deltaY;
+        if (deltaX != 0 && deltaY != 0) {
+            /* Snap to main direction */
+            if (Math.abs(pos.X - frameStartX) > Math.abs(pos.Y - frameStartY)) {
+                frameY = frameStartY;
+            } else {
+                frameX = frameStartX;
+            }
         }
 
         /* Move frame */
@@ -271,14 +266,14 @@ window.addEventListener("mouseleave", uiMoveCancel);
 /*****************************************************************************
  * Register touch event handlers
  *****************************************************************************/
-gameBoard.addEventListener("touchstart", uiMoveStart);
-gameBoard.addEventListener("touchmove",  uiMoveExecute);
-gameBoard.addEventListener("touchend",   uiMoveEnd);
+window.addEventListener("touchstart", uiMoveStart);
+window.addEventListener("touchmove",  uiMoveExecute);
+window.addEventListener("touchend",   uiMoveEnd);
 
 /*****************************************************************************
  * Register keyboard event handlers
  *****************************************************************************/
-document.addEventListener("keydown",     uiKeyPressed);
+window.addEventListener("keydown",     uiKeyPressed);
 
 /*****************************************************************************
  * Register button event handlers
