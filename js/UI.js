@@ -146,20 +146,19 @@ function uiMoveExecute(event) {
             deltaY = -gameBoardCellSize;
         }
 
-        /* Check if deltaX possible */
+        /* Check if deltaX, deltaY possible */
         move = uiMoveDirection(deltaX, 0, 0, 0);
         if (game.moveIsLegal(move) == false) {
             deltaX = 0;
         }
-        /* Check if deltaY possible */
         move = uiMoveDirection(0, deltaY, 0, 0);
         if (game.moveIsLegal(move) == false) {
             deltaY = 0;
         }
 
         /* Select horizontal or vertical direction */
-        let frameX = frameStartX + deltaX;
-        let frameY = frameStartY + deltaY;
+        let frameX = 0;
+        let frameY = 0;
         if (Math.abs(deltaX) > Math.abs(deltaY)) {
             frameX = frameStartX + deltaX;
             frameY = frameStartY;
@@ -173,8 +172,6 @@ function uiMoveExecute(event) {
         if (game.moveIsLegal(move) == false) {
             return;
         }
-
-        /* Check if moved more than half grid cell */
 
         /* Move frame */
         frame.style.left = frameX + "px";
@@ -190,8 +187,12 @@ function uiMoveEnd(event) {
         let frameY = parseInt(frame.style.top, 10);
         let move = uiMoveDirection(frameX, frameY, frameStartX, frameStartY);
 
-        /* Execute move on game board */
-        game.moveExecute(move);
+        /* Check if moved more than half grid cell */
+        if (Math.abs(frameX - frameStartX) >= gameBoardCellSize/2 ||
+            Math.abs(frameY - frameStartY) >= gameBoardCellSize/2) {
+            /* Execute move on game board */
+            game.moveExecute(move);
+        }
 
         /* Redraw board */
         uiBoardRedraw(game.board);
@@ -204,8 +205,8 @@ function uiMoveEnd(event) {
 }
 
 function uiMoveCancel(event) {
-    frame.style.left = frameStartX + "px";
-    frame.style.top  = frameStartY + "px";
+    /* Redraw board */
+    uiBoardRedraw(game.board);
 
     /* End move */
     frame       = undefined;
