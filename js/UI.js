@@ -53,22 +53,21 @@ function uiRestart() {
 /*****************************************************************************
  * Touch and mouse move handling
  *****************************************************************************/
-function uiMoveDirection(x0, y0, x1, y1) {
-    if (x0 - x1 == 1 &&
-        y0 - y1 == 0) {
-        return "right";
-    }
-    if (x0 - x1 == -1 &&
-        y0 - y1 == 0) {
-        return "left";
-    }
-    if (x0 - x1 == 0 &&
-        y0 - y1 == 1) {
-        return "down";
-    }
-    if (x0 - x1 == 0 &&
-        y0 - y1 == -1) {
-        return "up";
+function uiMoveDirection(newX, newY, oldX, oldY) {
+    if (Math.abs(newX - oldX) > Math.abs(newY - oldY)) {
+        /* Horizontal movement */
+        if (newX < oldX) {
+            return "left";
+        } else {
+            return "right";
+        }
+    } else {
+        /* Vertical movement */
+        if (newY < oldY) {
+            return "up";
+        } else {
+            return "down";
+        }
     }
 
     return "";
@@ -110,12 +109,6 @@ function uiMovePosition(event) {
 
 
 function uiMoveStart(event) {
-    /* Get event position */
-    let move = uiMovePosition(event);
-    if (move == undefined) {
-        return;
-    }
-
     /* Check that target is frame */
     if (event.target.className != "frame") {
         return;
@@ -130,14 +123,14 @@ function uiMoveStart(event) {
 function uiMoveExecute(event) {
     if (frame != undefined) {
         /* Get event position */
-        let move = uiMovePosition(event);
-        if (move == undefined) {
+        let pos = uiMovePosition(event);
+        if (pos == undefined) {
             return;
         }
 
         /* Check frame grid limits */
-        let deltaX = move.X - frameStartX;
-        let deltaY = move.Y - frameStartY;
+        let deltaX = pos.X - frameStartX;
+        let deltaY = pos.Y - frameStartY;
         if (deltaX > gameBoardCellSize) {
             deltaX = gameBoardCellSize;
         }
@@ -176,6 +169,12 @@ function uiMoveExecute(event) {
             frameY = (gameGridHeight - 0.5) * gameBoardCellSize;
         }
 
+        /* Check if legal move */
+        let move = uiMoveDirection(frameX, frameY, frameStartX, frameStartY);
+        if (game.moveIsLegal(move) == false) {
+//            return;
+        }
+
         /* Move frame */
         frame.style.left = frameX + "px";
         frame.style.top  = frameY + "px";
@@ -185,14 +184,10 @@ function uiMoveExecute(event) {
 
 function uiMoveEnd(event) {
     if (frame != undefined) {
-        /* Snap to closest integer position on grid */
+        /* Find out move direction */
         let frameX = parseInt(frame.style.left, 10);
         let frameY = parseInt(frame.style.top, 10);
-        X = Math.round(frameX / gameBoardCellSize - 0.5);
-        Y = Math.round(frameY / gameBoardCellSize - 0.5);
-
-        /* Find out move direction */
-        let move = uiMoveDirection(X, Y, game.board.frame.X, game.board.frame.Y);
+        let move = uiMoveDirection(frameX, frameY, frameStartX, frameStartY);
 
         /* Execute move on game board */
         game.moveExecute(move);
