@@ -24,7 +24,6 @@ function resizeGame() {
 /*****************************************************************************
  * Window event handlers
  *****************************************************************************/
-window.addEventListener("load",   showGame);
 window.addEventListener("resize", resizeGame);
 
 
@@ -32,15 +31,15 @@ window.addEventListener("resize", resizeGame);
  * Create game
  *****************************************************************************/
 var game = new Game();
-game.init(6, 6, 7, 130);
-// game.board.randomize(30);
+game.init(6, 6, 7, 48);
 
 
 /*****************************************************************************
  * Start game
  *****************************************************************************/
-hideGame();
+// hideGame();
 drawGame();
+//window.addEventListener("load",   showGame);
 
 
 /*
