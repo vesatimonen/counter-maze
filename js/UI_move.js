@@ -63,6 +63,7 @@ function uiMovePosition(event) {
     return {X, Y};
 }
 
+
 /*****************************************************************************
  * Move event handlers
  *****************************************************************************/
@@ -166,6 +167,7 @@ function uiMoveCancel(event) {
     frameStartY = undefined;
 }
 
+
 /*****************************************************************************
  * Register mouse event handlers
  *****************************************************************************/
@@ -173,6 +175,7 @@ window.addEventListener("mousedown",  uiMoveStart);
 window.addEventListener("mousemove",  uiMoveExecute);
 window.addEventListener("mouseup",    uiMoveEnd);
 window.addEventListener("mouseleave", uiMoveCancel);
+
 
 /*****************************************************************************
  * Register touch event handlers

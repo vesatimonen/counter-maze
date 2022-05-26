@@ -4,12 +4,11 @@
 const gameScreen     = document.getElementById("game-screen");
 const gameBoard      = document.getElementById("game-board");
 
-const buttonRestart  = document.getElementById("button-restart");
-const buttonUndo     = document.getElementById("button-undo");
-
 var   gameBoardWidth = gameBoard.clientWidth;
 var   gameBoardCellSize;
 
+const buttonRestart  = document.getElementById("button-restart");
+const buttonUndo     = document.getElementById("button-undo");
 
 /*****************************************************************************
  * Game progress handling
@@ -32,7 +31,7 @@ function uiRestart() {
             localStorage.setItem("game-level", JSON.stringify(game.level - 1));
 
             /* Start previous level */
-            uiStartLevel(game.level - 1);
+            levelStart(game.level - 1);
         }
         return;
     }
@@ -129,24 +128,9 @@ function uiGameRedraw(game) {
             localStorage.setItem("game-level", JSON.stringify(game.level + 1));
 
             /* Start new level */
-            uiStartLevel(game.level + 1);
+            levelStart(game.level + 1);
         }, 500);
     }
-}
-
-function uiStartLevel(level) {
-    if (level < gameLevels.length) {
-        /* Use predefined levels */
-        game.init(level,
-                  gameLevels[level].width, gameLevels[level].height,
-                  gameLevels[level].moves);
-    } else {
-        game.init(level,
-                  gameLevels[gameLevels.length - 1].width,
-                  gameLevels[gameLevels.length - 1].height,
-                  gameLevels[gameLevels.length - 1].moves + ((level - gameLevels.length) + 1) * 3);
-    }
-    uiBoardDraw(game.board);
 }
 
 
