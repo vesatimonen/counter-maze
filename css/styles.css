@@ -143,6 +143,7 @@
     background:     #67BFEC;
     border:         var(--border_style);
     border-radius:  var(--border_radius);
+    outline:        0;
 
     /* Size */
     width:          64px;
@@ -164,6 +165,8 @@
 .button:disabled {
     opacity: 0.3;
 }
+
+
 
 #game-info {
     font-size:      28px;

@@ -97,19 +97,22 @@ function uiFrameRedraw(board) {
     frameImage.style.top    = board.frame.Y * gameBoardCellSize + gameBoardCellSize / 2 + "px";
 }
 
+
 function uiItemRedraw(board, x, y) {
     /* Get DOM element for counter */
     let counterImage = document.getElementById("item-" + x + "-" + y);
-    let imageFile = "images/" + board.items[x][y] + "_shadow.png";
 
+    /* If value changes */
     if (counterImage.value != board.items[x][y]) {
         counterImage.value = board.items[x][y];
 
-        counterImage.src = imageFile;
+        /* Set new image */
+        counterImage.src = "images/" + counterImage.value + "_shadow.png";
 
+        /* Start animation */
         counterImage.style.animation = "none";
         counterImage.offsetHeight; /* trigger reflow */
-        counterImage.style.animation = "image-appear 0.5s 1";
+        counterImage.style.animation = "image-appear 0.3s 1";
     }
 }
 
