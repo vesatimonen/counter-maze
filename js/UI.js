@@ -37,6 +37,10 @@ function uiRestart() {
     /* Check if already at the beginning -> previous level */
     if (game.moveHistory.length == 0) {
         if (game.level > 0) {
+            /* Save game point */
+            localStorage.setItem("game-level", JSON.stringify(game.level - 1));
+
+            /* Start previous level */
             uiStartLevel(game.level - 1);
         }
         return;
@@ -356,6 +360,10 @@ function uiGameRedraw(game) {
     /* Check if end of level */
     if (game.board.total == 0) {
         setTimeout(function() {
+            /* Save game point */
+            localStorage.setItem("game-level", JSON.stringify(game.level + 1));
+
+            /* Start new level */
             uiStartLevel(game.level + 1);
         }, 500);
     }

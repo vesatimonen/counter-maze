@@ -40,8 +40,16 @@ var gameLevels = [
  * Create game
  *****************************************************************************/
 var game = new Game();
-uiStartLevel(0);
 
+/*****************************************************************************
+ * Read save point
+ *****************************************************************************/
+level = JSON.parse(localStorage.getItem("game-level"));
+if (level == undefined) {
+    uiStartLevel(0);
+} else {
+    uiStartLevel(level);
+}
 
 /*****************************************************************************
  * Start game
