@@ -371,7 +371,7 @@ function uiStartLevel(level) {
         game.init(level,
                   gameLevels[gameLevels.length - 1].width,
                   gameLevels[gameLevels.length - 1].height,
-                  gameLevels[gameLevels.length - 1].moves + ((level - gameLevels.length) + 1) * 4);
+                  gameLevels[gameLevels.length - 1].moves + ((level - gameLevels.length) + 1) * 3);
     }
     uiBoardDraw(game.board);
 }

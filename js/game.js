@@ -17,6 +17,17 @@ function array2D(width, height, value) {
 }
 
 
+var randomSeed = 0;
+function randomOwnSeed(seed) {
+    randomSeed = seed;
+}
+
+function randomOwn() {
+    var x = Math.sin(randomSeed) * 10000;
+    randomSeed++;
+    return x - Math.floor(x);
+}
+
 class Board {
     constructor() {
         /* Properties */
@@ -31,8 +42,8 @@ class Board {
     /* Randomize board (for testing) */
     randomize(moves) {
         /* Start position */
-        let startX = Math.floor(Math.random() * this.width);
-        let startY = Math.floor(Math.random() * this.height);
+        let startX = Math.floor(randomOwn() * this.width);
+        let startY = Math.floor(randomOwn() * this.height);
 
         /* Randomize moves */
         let oldX = -1;
@@ -51,7 +62,7 @@ class Board {
                     return false;
                 }
 
-                let direction = Math.floor(Math.random() * 4);
+                let direction = Math.floor(randomOwn() * 4);
                 switch (direction) {
                     case 0: /* Up */
                         newX = currX;
@@ -151,6 +162,7 @@ class Game {
         this.moveHistory = [];
 
         /* Initialize board */
+        randomOwnSeed(level);
         this.board.init(width, height, moves);
 
         /* Set level */

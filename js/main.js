@@ -31,33 +31,7 @@ window.addEventListener("resize", resizeGame);
  * Game levels
  *****************************************************************************/
 var gameLevels = [
-    {width: 3, height: 3, moves: 4},
-    {width: 3, height: 3, moves: 8},
-
-    {width: 4, height: 4, moves: 12},
-    {width: 3, height: 3, moves: 12},
-
-    {width: 4, height: 4, moves: 16},
-    {width: 3, height: 3, moves: 16},
-
-    {width: 4, height: 4, moves: 20},
-    {width: 3, height: 3, moves: 20},
-
-    {width: 4, height: 4, moves: 24},
-    {width: 3, height: 3, moves: 24},
-
-    {width: 5, height: 5, moves: 28},
-    {width: 4, height: 4, moves: 28},
-
-    {width: 5, height: 5, moves: 32},
-    {width: 4, height: 4, moves: 32},
-
-    {width: 5, height: 5, moves: 36},
-    {width: 4, height: 4, moves: 36},
-
-    {width: 5, height: 5, moves: 40},
-    {width: 5, height: 5, moves: 44},
-    {width: 5, height: 5, moves: 48},
+    {width: 5, height: 5, moves: 3},
 ];
 
 
