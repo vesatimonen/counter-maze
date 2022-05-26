@@ -69,6 +69,9 @@
     text-align:     center;
 }
 
+
+
+
 /*** Game board ***/
 #game-board {
     margin-top:     10px;
@@ -95,6 +98,7 @@
     margin:         0;
     float:          left;
 }
+
 
 .grid-image {
     margin:         auto;
@@ -183,4 +187,23 @@
 
     font-size:      12px;
     text-align:     center;
+}
+
+#debug-text {
+    position: relative;
+    left: 10px;
+}
+
+@keyframes image-appear {
+  0%   {opacity: 0;}
+  100% {opacity: 1;}
+}
+
+.appear-animate {
+    animation-name:             image-appear;
+    animation-delay:            0s;
+    animation-duration:         1s;
+    animation-timing-function:  ease;
+    animation-direction:        normal;
+    animation-iteration-count:  1;
 }

@@ -1,14 +1,26 @@
 /*****************************************************************************
- * Game board variables
+ * UI elements
  *****************************************************************************/
 const gameScreen     = document.getElementById("game-screen");
 const gameBoard      = document.getElementById("game-board");
+const buttonRestart  = document.getElementById("button-restart");
+const buttonUndo     = document.getElementById("button-undo");
 
+
+/*****************************************************************************
+ * Board size variables
+ *****************************************************************************/
 var   gameBoardWidth = gameBoard.clientWidth;
 var   gameBoardCellSize;
 
-const buttonRestart  = document.getElementById("button-restart");
-const buttonUndo     = document.getElementById("button-undo");
+
+/*****************************************************************************
+ * Register button event handlers
+ *****************************************************************************/
+buttonRestart.addEventListener("click", uiRestart);
+buttonUndo.addEventListener("click", uiUndo);
+
+
 
 /*****************************************************************************
  * Game progress handling
@@ -46,13 +58,6 @@ function uiRestart() {
     /* Redraw board */
     uiGameRedraw(game);
 }
-
-
-/*****************************************************************************
- * Register button event handlers
- *****************************************************************************/
-buttonRestart.addEventListener("click", uiRestart);
-buttonUndo.addEventListener("click", uiUndo);
 
 
 /*****************************************************************************
@@ -95,7 +100,17 @@ function uiFrameRedraw(board) {
 function uiItemRedraw(board, x, y) {
     /* Get DOM element for counter */
     let counterImage = document.getElementById("item-" + x + "-" + y);
-    counterImage.src = "images/" + board.items[x][y] + "_shadow.png";
+    let imageFile = "images/" + board.items[x][y] + "_shadow.png";
+
+    if (counterImage.value != board.items[x][y]) {
+        counterImage.value = board.items[x][y];
+
+        counterImage.src = imageFile;
+
+        counterImage.style.animation = "none";
+        counterImage.offsetHeight; /* trigger reflow */
+        counterImage.style.animation = "image-appear 0.5s 1";
+    }
 }
 
 function uiBoardRedraw(board) {
@@ -187,5 +202,5 @@ function uiBoardDraw(board) {
 
 
 
-//document.getElementById("debug_text").innerHTML = window.innerWidth;
+//document.getElementById("debug-text").innerHTML = window.innerWidth;
 

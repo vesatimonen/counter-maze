@@ -154,7 +154,7 @@ class Game {
         /* Game level */
         this.level = 0;
 
-//        document.getElementById("debug_text").innerHTML = "Board created: " + this.moveOptions;
+//        document.getElementById("debug-text").innerHTML = "Board created: " + this.moveOptions;
     }
 
     init(level, width, height, moves) {
