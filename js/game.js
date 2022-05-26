@@ -94,7 +94,7 @@ class Board {
                 }
 
                 /* Check that counter is not too high */
-                if (this.items[newX][newY] >= 9) {
+                if (this.items[newX][newY] >= 3) {
                     continue;
                 }
 
