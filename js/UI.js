@@ -331,7 +331,6 @@ function uiItemRedraw(board, x, y) {
     /* Get DOM element for counter */
     let counterImage = document.getElementById("item-" + x + "-" + y);
     counterImage.src = "images/" + board.items[x][y] + "_shadow.png";
-//    counterImage.src = "images/" + board.items[x][y] + "_shadow.svg";
 }
 
 function uiBoardRedraw(board) {
