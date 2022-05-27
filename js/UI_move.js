@@ -79,7 +79,7 @@ function uiMoveStart(event) {
     frameStartY = parseInt(frame.style.top, 10);
 }
 
-function uiMoveExecute(event) {
+function uiMoveContinue(event) {
     if (frame != undefined) {
         let move = "";
 
@@ -89,9 +89,21 @@ function uiMoveExecute(event) {
             return;
         }
 
-        /* Check frame grid limits */
+        /* Calculate move delta */
         let deltaX = pos.X - frameStartX;
         let deltaY = pos.Y - frameStartY;
+
+        /* Check if deltaX, deltaY possible */
+        move = uiMoveDirection(deltaX, 0, 0, 0);
+        if (game.moveIsLegal(move) == false) {
+            deltaX = 0;
+        }
+        move = uiMoveDirection(0, deltaY, 0, 0);
+        if (game.moveIsLegal(move) == false) {
+            deltaY = 0;
+        }
+
+        /* Check frame grid limits */
         if (deltaX > gameBoardCellSize) {
             deltaX = gameBoardCellSize;
         }
@@ -103,16 +115,6 @@ function uiMoveExecute(event) {
         }
         if (deltaY < -gameBoardCellSize) {
             deltaY = -gameBoardCellSize;
-        }
-
-        /* Check if deltaX, deltaY possible */
-        move = uiMoveDirection(deltaX, 0, 0, 0);
-        if (game.moveIsLegal(move) == false) {
-            deltaX = 0;
-        }
-        move = uiMoveDirection(0, deltaY, 0, 0);
-        if (game.moveIsLegal(move) == false) {
-            deltaY = 0;
         }
 
         /* Select horizontal or vertical direction */
@@ -127,28 +129,45 @@ function uiMoveExecute(event) {
             }
         }
 
-        /* Move frame */
-        frame.style.left = frameX + "px";
-        frame.style.top  = frameY + "px";
+        /* Show frame movement if threshold exeeced */
+        if (Math.abs(frameX - frameStartX) > gameBoardCellSize / 3 ||
+            Math.abs(frameY - frameStartY) > gameBoardCellSize / 3) {
+            frame.style.left = frameX + "px";
+            frame.style.top  = frameY + "px";
+        }
+
+        /* Make move if threshold exeeced */
+        if (Math.abs(frameX - frameStartX) > 2 * gameBoardCellSize / 3 ||
+            Math.abs(frameY - frameStartY) > 2 * gameBoardCellSize / 3) {
+            uiMoveExecute();
+
+            frameStartX = parseInt(frame.style.left, 10);
+            frameStartY = parseInt(frame.style.top, 10);
+        }
     }
+}
+
+function uiMoveExecute() {
+    /* Find out move direction */
+    let frameX = parseInt(frame.style.left, 10);
+    let frameY = parseInt(frame.style.top, 10);
+    let move = uiMoveDirection(frameX, frameY, frameStartX, frameStartY);
+
+    /* Check if moved more than half grid cell */
+    if (Math.abs(frameX - frameStartX) >= gameBoardCellSize/2 ||
+        Math.abs(frameY - frameStartY) >= gameBoardCellSize/2) {
+        /* Execute move on game board */
+        game.moveExecute(move);
+    }
+
+    /* Redraw board */
+    uiGameRedraw(game);
 }
 
 function uiMoveEnd(event) {
     if (frame != undefined) {
-        /* Find out move direction */
-        let frameX = parseInt(frame.style.left, 10);
-        let frameY = parseInt(frame.style.top, 10);
-        let move = uiMoveDirection(frameX, frameY, frameStartX, frameStartY);
-
-        /* Check if moved more than half grid cell */
-        if (Math.abs(frameX - frameStartX) >= gameBoardCellSize/2 ||
-            Math.abs(frameY - frameStartY) >= gameBoardCellSize/2) {
-            /* Execute move on game board */
-            game.moveExecute(move);
-        }
-
-        /* Redraw board */
-        uiGameRedraw(game);
+        /* Execute move */
+        uiMoveExecute();
     }
 
     /* End move */
@@ -172,7 +191,7 @@ function uiMoveCancel(event) {
  * Register mouse event handlers
  *****************************************************************************/
 window.addEventListener("mousedown",  uiMoveStart);
-window.addEventListener("mousemove",  uiMoveExecute);
+window.addEventListener("mousemove",  uiMoveContinue);
 window.addEventListener("mouseup",    uiMoveEnd);
 window.addEventListener("mouseleave", uiMoveCancel);
 
@@ -181,6 +200,6 @@ window.addEventListener("mouseleave", uiMoveCancel);
  * Register touch event handlers
  *****************************************************************************/
 window.addEventListener("touchstart", uiMoveStart);
-window.addEventListener("touchmove",  uiMoveExecute);
+window.addEventListener("touchmove",  uiMoveContinue);
 window.addEventListener("touchend",   uiMoveEnd);
 

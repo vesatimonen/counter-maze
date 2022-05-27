@@ -204,6 +204,5 @@ function uiBoardDraw(board) {
 }
 
 
-
 //document.getElementById("debug-text").innerHTML = window.innerWidth;
 
