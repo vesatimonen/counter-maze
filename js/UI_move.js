@@ -129,16 +129,18 @@ function uiMoveContinue(event) {
             }
         }
 
-        /* Show frame movement if threshold exeeced */
-        if (Math.abs(frameX - frameStartX) > gameBoardCellSize / 3 ||
-            Math.abs(frameY - frameStartY) > gameBoardCellSize / 3) {
+        /* Start frame movement if threshold exeeced */
+        let startThreshold = 0.3;
+        if (Math.abs(frameX - frameStartX) > gameBoardCellSize * startThreshold ||
+            Math.abs(frameY - frameStartY) > gameBoardCellSize * startThreshold) {
             frame.style.left = frameX + "px";
             frame.style.top  = frameY + "px";
         }
 
-        /* Make move if threshold exeeced */
-        if (Math.abs(frameX - frameStartX) > 2 * gameBoardCellSize / 3 ||
-            Math.abs(frameY - frameStartY) > 2 * gameBoardCellSize / 3) {
+        /* Snap move if threshold exeeced */
+        let snapThreshold = 0.6;
+        if (Math.abs(frameX - frameStartX) > gameBoardCellSize * snapThreshold ||
+            Math.abs(frameY - frameStartY) > gameBoardCellSize * snapThreshold) {
             uiMoveExecute();
 
             frameStartX = parseInt(frame.style.left, 10);
