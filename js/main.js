@@ -13,7 +13,7 @@ function levelStart(level) {
                   gameLevels[gameLevels.length - 1].height,
                   gameLevels[gameLevels.length - 1].moves + ((level - gameLevels.length) + 1) * 2);
     }
-    uiBoardDraw(game.board);
+    uiBoardSetup(game.board);
 }
 
 /*****************************************************************************

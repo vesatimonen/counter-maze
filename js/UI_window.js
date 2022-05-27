@@ -4,7 +4,7 @@
 function windowResize() {
     if (gameBoardWidth != gameBoard.clientWidth) {
         gameBoardWidth = gameBoard.clientWidth;
-        uiBoardDraw(game.board);
+        uiBoardSetup(game.board);
     }
 }
 

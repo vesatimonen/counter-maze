@@ -31,8 +31,8 @@ function uiUndo() {
         return;
     }
 
-    /* Redraw board */
-    uiGameRedraw(game);
+    /* Refresh board */
+    uiGameRefresh(game);
 }
 
 function uiRestart() {
@@ -55,8 +55,8 @@ function uiRestart() {
         }
     }
 
-    /* Redraw board */
-    uiGameRedraw(game);
+    /* Refresh board */
+    uiGameRefresh(game);
 }
 
 
@@ -135,27 +135,11 @@ function uiBoardRedraw(board) {
     uiButtonsRedraw(game);
 }
 
-function uiGameRedraw(game) {
-    /* Redraw game board */
-    uiBoardRedraw(game.board);
-
-    /* Check if end of level */
-    if (game.board.total == 0) {
-        setTimeout(function() {
-            /* Save game point */
-            localStorage.setItem("game-level", JSON.stringify(game.level + 1));
-
-            /* Start new level */
-            levelStart(game.level + 1);
-        }, 500);
-    }
-}
-
 
 /*****************************************************************************
- * Create board elements
+ * Setup board elements
  *****************************************************************************/
-function uiBoardDraw(board) {
+function uiBoardSetup(board) {
     /* Get board current size */
     gameBoardWidth    = gameBoard.clientWidth;
     gameBoardCellSize = gameBoard.clientWidth / board.width;
@@ -201,6 +185,25 @@ function uiBoardDraw(board) {
 
     /* Redraw board */
     uiBoardRedraw(board);
+}
+
+/*****************************************************************************
+ * Refresh board elements and check if game over
+ *****************************************************************************/
+function uiGameRefresh(game) {
+    /* Redraw game board */
+    uiBoardRedraw(game.board);
+
+    /* Check if end of level */
+    if (game.board.total == 0) {
+        setTimeout(function() {
+            /* Save game point */
+            localStorage.setItem("game-level", JSON.stringify(game.level + 1));
+
+            /* Start new level */
+            levelStart(game.level + 1);
+        }, 1000);
+    }
 }
 
 

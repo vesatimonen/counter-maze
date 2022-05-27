@@ -38,8 +38,8 @@ function uiKeyPressed(event) {
         return;
     }
 
-    /* Redraw board */
-    uiGameRedraw(game);
+    /* Refresh board */
+    uiGameRefresh(game);
 }
 
 

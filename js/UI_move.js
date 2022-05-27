@@ -162,8 +162,8 @@ function uiMoveExecute() {
         game.moveExecute(move);
     }
 
-    /* Redraw board */
-    uiGameRedraw(game);
+    /* Refresh board */
+    uiGameRefresh(game);
 }
 
 function uiMoveEnd(event) {
@@ -179,8 +179,8 @@ function uiMoveEnd(event) {
 }
 
 function uiMoveCancel(event) {
-    /* Redraw board */
-    uiGameRedraw(game);
+    /* Refresh board */
+    uiGameRefresh(game);
 
     /* End move */
     frame       = undefined;
