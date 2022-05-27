@@ -56,7 +56,7 @@ function uiMovePosition(event) {
             return undefined;
     }
 
-    let rect = gameBoard.getBoundingClientRect()
+    let rect = gameGrid.getBoundingClientRect()
     X -= rect.left;
     Y -= rect.top;
 
@@ -69,7 +69,7 @@ function uiMovePosition(event) {
  *****************************************************************************/
 function uiMoveStart(event) {
     /* Check that target is frame */
-    if (event.target.className != "frame") {
+    if (event.target.id != "frame") {
         return;
     }
 
@@ -104,17 +104,17 @@ function uiMoveContinue(event) {
         }
 
         /* Check frame grid limits */
-        if (deltaX > gameBoardCellSize) {
-            deltaX = gameBoardCellSize;
+        if (deltaX > gameGridCellSize) {
+            deltaX = gameGridCellSize;
         }
-        if (deltaX < -gameBoardCellSize) {
-            deltaX = -gameBoardCellSize;
+        if (deltaX < -gameGridCellSize) {
+            deltaX = -gameGridCellSize;
         }
-        if (deltaY > gameBoardCellSize) {
-            deltaY = gameBoardCellSize;
+        if (deltaY > gameGridCellSize) {
+            deltaY = gameGridCellSize;
         }
-        if (deltaY < -gameBoardCellSize) {
-            deltaY = -gameBoardCellSize;
+        if (deltaY < -gameGridCellSize) {
+            deltaY = -gameGridCellSize;
         }
 
         /* Select horizontal or vertical direction */
@@ -131,18 +131,20 @@ function uiMoveContinue(event) {
 
         /* Start frame movement if threshold exeeced */
         let startThreshold = 0.3;
-        if (Math.abs(frameX - frameStartX) > gameBoardCellSize * startThreshold ||
-            Math.abs(frameY - frameStartY) > gameBoardCellSize * startThreshold) {
+        if (Math.abs(frameX - frameStartX) > gameGridCellSize * startThreshold ||
+            Math.abs(frameY - frameStartY) > gameGridCellSize * startThreshold) {
             frame.style.left = frameX + "px";
             frame.style.top  = frameY + "px";
         }
 
         /* Snap move if threshold exeeced */
         let snapThreshold = 0.6;
-        if (Math.abs(frameX - frameStartX) > gameBoardCellSize * snapThreshold ||
-            Math.abs(frameY - frameStartY) > gameBoardCellSize * snapThreshold) {
+        if (Math.abs(frameX - frameStartX) > gameGridCellSize * snapThreshold ||
+            Math.abs(frameY - frameStartY) > gameGridCellSize * snapThreshold) {
+            /* Mave move on board */
             uiMoveExecute();
 
+            /* Save new frame start */
             frameStartX = parseInt(frame.style.left, 10);
             frameStartY = parseInt(frame.style.top, 10);
         }
@@ -156,8 +158,8 @@ function uiMoveExecute() {
     let move = uiMoveDirection(frameX, frameY, frameStartX, frameStartY);
 
     /* Check if moved more than half grid cell */
-    if (Math.abs(frameX - frameStartX) >= gameBoardCellSize/2 ||
-        Math.abs(frameY - frameStartY) >= gameBoardCellSize/2) {
+    if (Math.abs(frameX - frameStartX) >= gameGridCellSize/2 ||
+        Math.abs(frameY - frameStartY) >= gameGridCellSize/2) {
         /* Execute move on game board */
         game.moveExecute(move);
     }
