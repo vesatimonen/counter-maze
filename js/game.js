@@ -201,6 +201,21 @@ class Game {
         return this.moveHistory[this.moveHistory.length - (index + 1)];
     }
 
+    isUndoMove(move) {
+        /* Convert move to place */
+        let place = this.convertMoveToPlace(move);
+        if (place == undefined) {
+            return false;
+        }
+
+        if (this.moveHistory.length > 0) {
+            let undoMove = this.getHistoryMove(0);
+            if (undoMove.X == place.X && undoMove.Y == place.Y) {
+                return true;
+            }
+        }
+    }
+
     /* Check if move is legal */
     isLegalMove(move) {
         let place = this.convertMoveToPlace(move);
@@ -215,12 +230,8 @@ class Game {
         }
 
         /* Check if backward move */
-        if (this.moveHistory.length > 0) {
-            let undoMove = this.getHistoryMove(0);
-
-            if (undoMove.X == place.X && undoMove.Y == place.Y) {
-                return false;
-            }
+        if (this.isUndoMove(move) == true) {
+            return false;
         }
 
         /* Check that counter is not zero */
@@ -232,6 +243,14 @@ class Game {
     }
 
     moveExecute(move) {
+        /* Check if undo move */
+/*
+        if (this.isUndoMove(move) == true) {
+            this.moveUndo(move);
+            return true;
+        }
+*/
+
         /* Check that move is legal */
         if (this.isLegalMove(move) == false) {
             return false;
