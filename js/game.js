@@ -193,30 +193,6 @@ class Game {
         return undefined;
     }
 
-    convertPlaceToMove(x, y) {
-        let deltaX = x - this.board.frame.X;
-        let deltaY = y - this.board.frame.Y;
-
-        if (deltaY == 0) {
-            if (deltaX == 1) {
-                return "right";
-            }
-            if (deltaX == -1) {
-                return "left";
-            }
-        }
-        if (deltaX == 0) {
-            if (deltaY == 1) {
-                return "down";
-            }
-            if (deltaY == -1) {
-                return "up";
-            }
-        }
-
-        return undefined;
-    }
-
     getUndoMove() {
         if (this.moveHistory.length == 0) {
             return undefined;
@@ -236,21 +212,14 @@ class Game {
         return undefined;
     }
 
-    isUndoPlace(x, y) {
-        let undoMove = this.getUndoMove();
-        let move     = this.convertPlaceToMove(x, y);
-
-        if (undoMove != undefined) {
-            if (move == undoMove) {
-                return true;
-            } else {
-                return false;
-            }
+    getUndoPlace() {
+        if (this.moveHistory.length == 0) {
+            return undefined;
         }
 
-        return false;
+        let undoMove = this.getUndoMove();
+        return this.convertMoveToPlace(undoMove);
     }
-
 
     /* Check if move is legal */
     isLegalMove(move) {

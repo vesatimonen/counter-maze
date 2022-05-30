@@ -118,8 +118,17 @@
 
     /* Disable scroll with touch */
     touch-action:   none;
+    z-index:        9;
 }
 
+.undo-frame {
+    position:       absolute;
+    transform:      translate(-50%, -50%);
+    opacity:        0.5;
+
+    /* Disable scroll with touch */
+    touch-action:   none;
+}
 
 /*** Game controls ***/
 #game-controls {
