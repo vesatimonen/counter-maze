@@ -3,61 +3,12 @@
  *****************************************************************************/
 const gameScreen     = document.getElementById("game-screen");
 const gameGrid       = document.getElementById("game-grid");
-const buttonRestart  = document.getElementById("button-restart");
-const buttonUndo     = document.getElementById("button-undo");
-
 
 /*****************************************************************************
  * Board size variables
  *****************************************************************************/
 var   gameGridWidth = gameGrid.clientWidth;
 var   gameGridCellSize;
-
-
-/*****************************************************************************
- * Register button event handlers
- *****************************************************************************/
-buttonRestart.addEventListener("click", uiRestart);
-buttonUndo.addEventListener("click", uiUndo);
-
-
-
-/*****************************************************************************
- * Game progress handling
- *****************************************************************************/
-function uiUndo() {
-    /* Make undo if possible */
-    if (game.moveUndo() == false) {
-        return;
-    }
-
-    /* Refresh board */
-    uiGameRefresh(game);
-}
-
-function uiRestart() {
-    /* Check if already at the beginning -> previous level */
-    if (game.moveHistory.length == 0) {
-        if (game.level > 0) {
-            /* Save game point */
-            localStorage.setItem("game-level", JSON.stringify(game.level - 1));
-
-            /* Start previous level */
-            levelStart(game.level - 1);
-        }
-        return;
-    }
-
-    /* Undo all moves back */
-    while (true) {
-        if (game.moveUndo() == false) {
-            break;
-        }
-    }
-
-    /* Refresh board */
-    uiGameRefresh(game);
-}
 
 
 /*****************************************************************************
@@ -97,11 +48,6 @@ function uiFrameRedraw(board) {
     frameImage.style.top    = board.frame.Y * gameGridCellSize + gameGridCellSize / 2 + "px";
 }
 
-
-function uiImageAnimationEnd(event) {
-    event.stopPropagation();
-}
-
 function uiItemRedraw(board, x, y) {
     /* Get DOM element for counter */
     let counterImage = document.getElementById("item-" + x + "-" + y);
@@ -114,6 +60,9 @@ function uiItemRedraw(board, x, y) {
         counterImage.src = "images/" + counterImage.value + "_shadow.png";
 
         /* Start animation */
+        function uiImageAnimationEnd(event) {
+            event.stopPropagation();
+        }
         counterImage.addEventListener("animationend", uiImageAnimationEnd);
         counterImage.style.animation = "none";
         counterImage.offsetHeight; /* trigger reflow */
@@ -196,12 +145,6 @@ function uiBoardSetup(board) {
  * Refresh board elements and check if game over
  *****************************************************************************/
 
-function uiGridAnimationEnd(event) {
-    event.stopPropagation();
-
-    /* Start new level */
-    levelStart(game.level + 1);
-}
 
 function uiGameRefresh(game) {
     /* Redraw game board */
@@ -213,6 +156,12 @@ function uiGameRefresh(game) {
         localStorage.setItem("game-level", JSON.stringify(game.level + 1));
 
         /* Start animation */
+        function uiGridAnimationEnd(event) {
+            event.stopPropagation();
+
+            /* Start new level */
+            levelStart(game.level + 1);
+        }
         gameGrid.addEventListener("animationend", uiGridAnimationEnd);
 //        gameGrid.style.animation = "none";
         gameGrid.style.animation = null;
