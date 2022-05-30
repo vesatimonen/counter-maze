@@ -170,7 +170,7 @@ class Game {
     }
 
     /* Convert move string to XY-place */
-    moveToPlace(move) {
+    convertMoveToPlace(move) {
         switch (move) {
             case "up":
                 return {X: this.board.frame.X,
@@ -193,9 +193,68 @@ class Game {
         return undefined;
     }
 
+    convertPlaceToMove(x, y) {
+        let deltaX = x - this.board.frame.X;
+        let deltaY = y - this.board.frame.Y;
+
+        if (deltaY == 0) {
+            if (deltaX == 1) {
+                return "right";
+            }
+            if (deltaX == -1) {
+                return "left";
+            }
+        }
+        if (deltaX == 0) {
+            if (deltaY == 1) {
+                return "down";
+            }
+            if (deltaY == -1) {
+                return "up";
+            }
+        }
+
+        return undefined;
+    }
+
+    getUndoMove() {
+        if (this.moveHistory.length == 0) {
+            return undefined;
+        }
+
+        switch (this.moveHistory[this.moveHistory.length - 1]) {
+            case "up":
+                return "down";
+            case "right":
+                return "left";
+            case "down":
+                return "up";
+            case "left":
+                return "right";
+        }
+
+        return undefined;
+    }
+
+    isUndoPlace(x, y) {
+        let undoMove = this.getUndoMove();
+        let move     = this.convertPlaceToMove(x, y);
+
+        if (undoMove != undefined) {
+            if (move == undoMove) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        return false;
+    }
+
+
     /* Check if move is legal */
-    moveIsLegal(move) {
-        let place = this.moveToPlace(move);
+    isLegalMove(move) {
+        let place = this.convertMoveToPlace(move);
         if (place == undefined) {
             return false;
         }
@@ -208,27 +267,10 @@ class Game {
 
         /* Check if backward move */
         if (this.moveHistory.length > 0) {
-            switch (this.moveHistory[this.moveHistory.length - 1]) {
-                case "up":
-                    if (move == "down") {
-                        return false;
-                    }
-                    break;
-                case "right":
-                    if (move == "left") {
-                        return false;
-                    }
-                    break;
-                case "down":
-                    if (move == "up") {
-                        return false;
-                    }
-                    break;
-                case "left":
-                    if (move == "right") {
-                        return false;
-                    }
-                    break;
+            let undoMove = this.getUndoMove();
+
+            if (move == undoMove) {
+                return false;
             }
         }
 
@@ -242,11 +284,11 @@ class Game {
 
     moveExecute(move) {
         /* Check that move is legal */
-        if (this.moveIsLegal(move) == false) {
+        if (this.isLegalMove(move) == false) {
             return false;
         }
 
-        let place = this.moveToPlace(move);
+        let place = this.convertMoveToPlace(move);
 
         /* Move frame */
         this.board.frame.X = place.X;

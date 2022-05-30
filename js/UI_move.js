@@ -97,11 +97,11 @@ function uiMoveContinue(event) {
 
         /* Check if deltaX, deltaY possible */
         move = uiMoveDirection(deltaX, 0, 0, 0);
-        if (game.moveIsLegal(move) == false) {
+        if (game.isLegalMove(move) == false) {
             deltaX = 0;
         }
         move = uiMoveDirection(0, deltaY, 0, 0);
-        if (game.moveIsLegal(move) == false) {
+        if (game.isLegalMove(move) == false) {
             deltaY = 0;
         }
 

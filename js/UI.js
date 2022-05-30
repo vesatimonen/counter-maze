@@ -69,10 +69,19 @@ function uiItemRedraw(board, x, y) {
         counterImage.style.animation = "none";
         counterImage.offsetHeight; /* trigger reflow */
 
+        /* Show item (disabled or enabled) */
         if (counterImage.value > 0) {
             counterImage.style.animation = "image-appear 0.2s 1 forwards";
         } else {
             counterImage.style.animation = "image-appear-disabled 0.2s 1 forwards";
+        }
+    } else {
+        /* If undo place */
+        if (game.isUndoPlace(x, y) == true) {
+//            counterImage.addEventListener("animationend", uiImageAnimationEnd);
+//            counterImage.style.animation = "none";
+//            counterImage.offsetHeight; /* trigger reflow */
+//            counterImage.style.animation = "image-fade-disabled 0.2s 1 forwards";
         }
     }
 }
@@ -151,14 +160,11 @@ function uiBoardSetup(board) {
 /*****************************************************************************
  * Refresh board elements and check if game over
  *****************************************************************************/
-
-
-        function uiGridAnimationEnd(event) {
-            event.stopPropagation();
-console.log("hep" + game.level + 1);
-            levelStart(game.level + 1); /* Start new level */
-            return false;
-        }
+function uiGridAnimationEnd(event) {
+    event.stopPropagation();
+    levelStart(game.level + 1); /* Start new level */
+    return false;
+}
 
 function uiGameRefresh(game) {
     /* Redraw game board */
@@ -168,8 +174,7 @@ function uiGameRefresh(game) {
     if (game.board.total == 0) {
         /* Start animation */
         gameGrid.addEventListener("animationend", uiGridAnimationEnd);
-//        gameGrid.style.animation = "none";
-        gameGrid.style.animation = null;
+        gameGrid.style.animation = "none";
         gameGrid.offsetHeight; /* trigger reflow */
         gameGrid.style.animation = "image-appear 0.5s ease-in 0.2s 1 reverse";
     }
