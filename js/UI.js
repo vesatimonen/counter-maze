@@ -62,6 +62,7 @@ function uiItemRedraw(board, x, y) {
         /* Start animation */
         function uiImageAnimationEnd(event) {
             event.stopPropagation();
+            return false;
         }
         counterImage.addEventListener("animationend", uiImageAnimationEnd);
         counterImage.style.animation = "none";
@@ -158,9 +159,8 @@ function uiGameRefresh(game) {
         /* Start animation */
         function uiGridAnimationEnd(event) {
             event.stopPropagation();
-
-            /* Start new level */
-            levelStart(game.level + 1);
+            levelStart(game.level + 1); /* Start new level */
+            return false;
         }
         gameGrid.addEventListener("animationend", uiGridAnimationEnd);
 //        gameGrid.style.animation = "none";

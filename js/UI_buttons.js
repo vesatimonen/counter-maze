@@ -8,26 +8,16 @@ const buttonUndo     = document.getElementById("button-undo");
 function uiUndo() {
     /* Make undo if possible */
     if (game.moveUndo() == false) {
-        return;
+        return false;
     }
 
     /* Refresh board */
     uiGameRefresh(game);
+
+    return false;
 }
 
 function uiRestart() {
-    /* Check if already at the beginning -> previous level */
-    if (game.moveHistory.length == 0) {
-        if (game.level > 0) {
-            /* Save game point */
-            localStorage.setItem("game-level", JSON.stringify(game.level - 1));
-
-            /* Start previous level */
-            levelStart(game.level - 1);
-        }
-        return;
-    }
-
     /* Undo all moves back */
     while (true) {
         if (game.moveUndo() == false) {
@@ -37,10 +27,41 @@ function uiRestart() {
 
     /* Refresh board */
     uiGameRefresh(game);
+
+    return false;
+}
+
+function uiMouseUp() {
+    document.getElementById("debug-text").innerHTML = "mouse up";
+
+    return false;
+}
+
+    /* Check if already at the beginning -> previous level */
+//    if (game.moveHistory.length == 0) {
+//        if (game.level > 0) {
+            /* Save game point */
+//            localStorage.setItem("game-level", JSON.stringify(game.level - 1));
+
+            /* Start previous level */
+//            levelStart(game.level - 1);
+//        }
+//        return;
+//    }
+
+function uiMouseDown() {
+    document.getElementById("debug-text").innerHTML = "mouse down" + counter++;
+  // Set timeout
+//  pressTimer = window.setTimeout(function() { ... Your Code ...},1000);
+    return false;
 }
 
 /*****************************************************************************
  * Register button event handlers
  *****************************************************************************/
-buttonRestart.addEventListener("click", uiRestart);
 buttonUndo.addEventListener("click", uiUndo);
+
+buttonRestart.addEventListener("mouseup", uiMouseUp);
+buttonRestart.addEventListener("mousedown", uiMouseDown);
+buttonRestart.addEventListener("click", uiRestart);
+

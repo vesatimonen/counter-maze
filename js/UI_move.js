@@ -70,13 +70,15 @@ function uiMovePosition(event) {
 function uiMoveStart(event) {
     /* Check that target is frame */
     if (event.target.id != "frame") {
-        return;
+        return false;
     }
 
     /* Save move start situation */
     frame        = event.target;
     frameStartX = parseInt(frame.style.left, 10);
     frameStartY = parseInt(frame.style.top, 10);
+
+    return false;
 }
 
 function uiMoveContinue(event) {
@@ -86,7 +88,7 @@ function uiMoveContinue(event) {
         /* Get event position */
         let pos = uiMovePosition(event);
         if (pos == undefined) {
-            return;
+            return false;
         }
 
         /* Calculate move delta */
@@ -149,6 +151,8 @@ function uiMoveContinue(event) {
             frameStartY = parseInt(frame.style.top, 10);
         }
     }
+
+    return false;
 }
 
 function uiMoveExecute() {
@@ -166,6 +170,8 @@ function uiMoveExecute() {
 
     /* Refresh board */
     uiGameRefresh(game);
+
+    return false;
 }
 
 function uiMoveEnd(event) {
@@ -178,6 +184,8 @@ function uiMoveEnd(event) {
     frame       = undefined;
     frameStartX = undefined;
     frameStartY = undefined;
+
+    return false;
 }
 
 function uiMoveCancel(event) {
@@ -188,6 +196,8 @@ function uiMoveCancel(event) {
     frame       = undefined;
     frameStartX = undefined;
     frameStartY = undefined;
+
+    return false;
 }
 
 

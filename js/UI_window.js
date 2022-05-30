@@ -6,6 +6,8 @@ function windowResize() {
         gameGridWidth = gameGrid.clientWidth;
         uiBoardSetup(game.board);
     }
+
+    return false;
 }
 
 

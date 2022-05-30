@@ -30,16 +30,18 @@ function uiKeyPressed(event) {
             return;
             break;
         default:
-            return;
+            return false;
     }
 
     /* Execute move on game board */
     if (game.moveExecute(move) == false) {
-        return;
+        return false;
     }
 
     /* Refresh board */
     uiGameRefresh(game);
+
+    return false;
 }
 
 
