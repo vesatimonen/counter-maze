@@ -31,15 +31,20 @@ function uiRestart() {
     return false;
 }
 
+var restartTimer;
 function uiMouseUp() {
-    clearTimeout(restartTimer);
+    clearInterval(restartTimer);
     return false;
 }
 
 function uiMouseDown() {
-    restartTimer = setTimeout(
+    restartTimer = setInterval(
                         function() {
-                            levelStart(game.level - 1);
+                            if (game.level == 0) {
+                                clearInterval(restartTimer);
+                            } else {
+                                levelStart(game.level - 1);
+                            }
                         },
                         1000);
     return false;

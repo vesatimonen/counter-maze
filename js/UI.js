@@ -48,6 +48,11 @@ function uiFrameRedraw(board) {
     frameImage.style.top    = board.frame.Y * gameGridCellSize + gameGridCellSize / 2 + "px";
 }
 
+function uiImageAnimationEnd(event) {
+    event.stopPropagation();
+    return false;
+}
+
 function uiItemRedraw(board, x, y) {
     /* Get DOM element for counter */
     let counterImage = document.getElementById("item-" + x + "-" + y);
@@ -60,10 +65,6 @@ function uiItemRedraw(board, x, y) {
         counterImage.src = "images/" + counterImage.value + "_shadow.png";
 
         /* Start animation */
-        function uiImageAnimationEnd(event) {
-            event.stopPropagation();
-            return false;
-        }
         counterImage.addEventListener("animationend", uiImageAnimationEnd);
         counterImage.style.animation = "none";
         counterImage.offsetHeight; /* trigger reflow */
@@ -147,6 +148,13 @@ function uiBoardSetup(board) {
  *****************************************************************************/
 
 
+        function uiGridAnimationEnd(event) {
+            event.stopPropagation();
+console.log("hep" + game.level + 1);
+            levelStart(game.level + 1); /* Start new level */
+            return false;
+        }
+
 function uiGameRefresh(game) {
     /* Redraw game board */
     uiBoardRedraw(game.board);
@@ -154,11 +162,6 @@ function uiGameRefresh(game) {
     /* Check if end of level */
     if (game.board.total == 0) {
         /* Start animation */
-        function uiGridAnimationEnd(event) {
-            event.stopPropagation();
-            levelStart(game.level + 1); /* Start new level */
-            return false;
-        }
         gameGrid.addEventListener("animationend", uiGridAnimationEnd);
 //        gameGrid.style.animation = "none";
         gameGrid.style.animation = null;
