@@ -34,22 +34,17 @@ function uiRestart() {
 function uiMouseUp() {
     document.getElementById("debug-text").innerHTML = "mouse up";
 
+    clearTimeout(restartTimer);
     return false;
 }
 
-    /* Check if already at the beginning -> previous level */
-//    if (game.moveHistory.length == 0) {
-//        if (game.level > 0) {
-            /* Start previous level */
-//            levelStart(game.level - 1);
-//        }
-//        return;
-//    }
-
 function uiMouseDown() {
     document.getElementById("debug-text").innerHTML = "mouse down";
-  // Set timeout
-//  pressTimer = window.setTimeout(function() { ... Your Code ...},1000);
+    restartTimer = setTimeout(
+                        function() {
+                            levelStart(game.level - 1);
+                        },
+                        1000);
     return false;
 }
 
