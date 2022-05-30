@@ -10,7 +10,7 @@ const gameGrid       = document.getElementById("game-grid");
 var   gameGridWidth = gameGrid.clientWidth;
 var   gameGridCellSize;
 
-const trailFrameCount = 3;
+const trailFrameCount = 2;
 
 /*****************************************************************************
  * Redraw buttons
@@ -58,13 +58,16 @@ function uiFrameRedraw(board) {
             undoImage.style.left    = undoMove.X * gameGridCellSize + gameGridCellSize / 2 + "px";
             undoImage.style.top     = undoMove.Y * gameGridCellSize + gameGridCellSize / 2 + "px";
 //            undoImage.style.height  = gameGridCellSize * Math.pow(0.7, i) + "px";
-            undoImage.style.opacity = Math.pow(0.5, i + 1);
+            undoImage.style.opacity = Math.pow(0.4, i + 1);
 
 /*
+//
+            undoImage.style.opacity = 0.0;
+
             undoImage.addEventListener("animationend", uiImageAnimationEnd);
             undoImage.style.animation = "none";
             undoImage.offsetHeight;
-            undoImage.style.animation = "image-appear-disabled 2s 1 forwards";
+            undoImage.style.animation = "image-appear 5.0s linear 1.0s " + Math.pow(0.4, i + 1) + " forwards";
 */
         }
     }
