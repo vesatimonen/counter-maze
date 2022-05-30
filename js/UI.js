@@ -68,7 +68,12 @@ function uiItemRedraw(board, x, y) {
         counterImage.addEventListener("animationend", uiImageAnimationEnd);
         counterImage.style.animation = "none";
         counterImage.offsetHeight; /* trigger reflow */
-        counterImage.style.animation = "image-appear 0.2s 1";
+
+        if (counterImage.value > 0) {
+            counterImage.style.animation = "image-appear 0.2s 1 forwards";
+        } else {
+            counterImage.style.animation = "image-appear-disabled 0.2s 1 forwards";
+        }
     }
 }
 
