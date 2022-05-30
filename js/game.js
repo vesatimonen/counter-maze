@@ -198,7 +198,7 @@ class Game {
             return undefined;
         }
 
-        switch (this.moveHistory[this.moveHistory.length - 1]) {
+        switch (this.moveHistory[this.moveHistory.length - 1].direction) {
             case "up":
                 return "down";
             case "right":
@@ -257,18 +257,17 @@ class Game {
             return false;
         }
 
-        let place = this.convertMoveToPlace(move);
+        /* Save move */
+        this.moveHistory.push({direction: move, x: this.board.frame.X, y: this.board.frame.Y});
 
         /* Move frame */
+        let place = this.convertMoveToPlace(move);
         this.board.frame.X = place.X;
         this.board.frame.Y = place.Y;
 
         /* Decrement counter */
         this.board.items[place.X][place.Y]--;
         this.board.total--;
-
-        /* Save move */
-        this.moveHistory.push(move);
 
         return true;
     }
@@ -287,7 +286,7 @@ class Game {
         this.board.total++;
 
         /* Move frame backwards */
-        switch (move) {
+        switch (move.direction) {
             case "up":
                 this.board.frame.Y++;
                 break;
