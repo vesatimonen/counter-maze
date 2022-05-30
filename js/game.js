@@ -231,6 +231,7 @@ class Game {
 
         /* Check if backward move */
         if (this.isUndoMove(move) == true) {
+//            return true;
             return false;
         }
 
@@ -243,17 +244,15 @@ class Game {
     }
 
     moveExecute(move) {
-        /* Check if undo move */
-/*
-        if (this.isUndoMove(move) == true) {
-            this.moveUndo(move);
-            return true;
-        }
-*/
-
         /* Check that move is legal */
         if (this.isLegalMove(move) == false) {
             return false;
+        }
+
+        /* Check if undo move */
+        if (this.isUndoMove(move) == true) {
+            this.moveUndo(move);
+            return true;
         }
 
         /* Save move */

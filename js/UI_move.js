@@ -132,7 +132,7 @@ function uiMoveContinue(event) {
         }
 
         /* Start frame movement if threshold exeeced */
-        let startThreshold = 0.3;
+        let startThreshold = 0.5;
         if (Math.abs(frameX - frameStartX) > gameGridCellSize * startThreshold ||
             Math.abs(frameY - frameStartY) > gameGridCellSize * startThreshold) {
             frame.style.left = frameX + "px";
@@ -140,7 +140,7 @@ function uiMoveContinue(event) {
         }
 
         /* Snap move if threshold exeeced */
-        let snapThreshold = 0.6;
+        let snapThreshold = 0.8;
         if (Math.abs(frameX - frameStartX) > gameGridCellSize * snapThreshold ||
             Math.abs(frameY - frameStartY) > gameGridCellSize * snapThreshold) {
             /* Mave move on board */
