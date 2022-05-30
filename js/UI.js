@@ -10,7 +10,7 @@ const gameGrid       = document.getElementById("game-grid");
 var   gameGridWidth = gameGrid.clientWidth;
 var   gameGridCellSize;
 
-const trailFrameCount = 2;
+const trailFrameCount = 3;
 
 /*****************************************************************************
  * Redraw buttons
