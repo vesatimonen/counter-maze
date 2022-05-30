@@ -198,27 +198,7 @@ class Game {
             return undefined;
         }
 
-        switch (this.moveHistory[this.moveHistory.length - 1].direction) {
-            case "up":
-                return "down";
-            case "right":
-                return "left";
-            case "down":
-                return "up";
-            case "left":
-                return "right";
-        }
-
-        return undefined;
-    }
-
-    getUndoPlace() {
-        if (this.moveHistory.length == 0) {
-            return undefined;
-        }
-
-        let undoMove = this.getUndoMove();
-        return this.convertMoveToPlace(undoMove);
+        return this.moveHistory[this.moveHistory.length - 1];
     }
 
     /* Check if move is legal */
@@ -238,7 +218,7 @@ class Game {
         if (this.moveHistory.length > 0) {
             let undoMove = this.getUndoMove();
 
-            if (move == undoMove) {
+            if (undoMove.X == place.X && undoMove.Y == place.Y) {
                 return false;
             }
         }
@@ -258,7 +238,7 @@ class Game {
         }
 
         /* Save move */
-        this.moveHistory.push({direction: move, x: this.board.frame.X, y: this.board.frame.Y});
+        this.moveHistory.push({direction: move, X: this.board.frame.X, Y: this.board.frame.Y});
 
         /* Move frame */
         let place = this.convertMoveToPlace(move);
