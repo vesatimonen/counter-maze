@@ -2,6 +2,12 @@
  * Level initialization
  *****************************************************************************/
 function levelStart(level) {
+    /* Check level value */
+    if (!(level > 0)) {
+        level = 0;
+    }
+
+    /* Initialize game */
     if (level < gameLevels.length) {
         /* Use predefined levels */
         game.init(level,
@@ -13,6 +19,11 @@ function levelStart(level) {
                   gameLevels[gameLevels.length - 1].height,
                   gameLevels[gameLevels.length - 1].moves + ((level - gameLevels.length) + 1) * 2);
     }
+
+    /* Save game point */
+    localStorage.setItem("game-level", JSON.stringify(game.level));
+
+    /* Setup board */
     uiBoardSetup(game.board);
 }
 
@@ -62,10 +73,10 @@ var game = new Game();
  * Start game from save point
  *****************************************************************************/
 level = JSON.parse(localStorage.getItem("game-level"));
-if (level == undefined) {
-    levelStart(0);
-} else {
+if (level > 0) {
     levelStart(level);
+} else {
+    levelStart(0);
 }
 
 

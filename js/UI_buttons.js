@@ -40,9 +40,6 @@ function uiMouseUp() {
     /* Check if already at the beginning -> previous level */
 //    if (game.moveHistory.length == 0) {
 //        if (game.level > 0) {
-            /* Save game point */
-//            localStorage.setItem("game-level", JSON.stringify(game.level - 1));
-
             /* Start previous level */
 //            levelStart(game.level - 1);
 //        }
@@ -50,7 +47,7 @@ function uiMouseUp() {
 //    }
 
 function uiMouseDown() {
-    document.getElementById("debug-text").innerHTML = "mouse down" + counter++;
+    document.getElementById("debug-text").innerHTML = "mouse down";
   // Set timeout
 //  pressTimer = window.setTimeout(function() { ... Your Code ...},1000);
     return false;

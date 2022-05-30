@@ -153,9 +153,6 @@ function uiGameRefresh(game) {
 
     /* Check if end of level */
     if (game.board.total == 0) {
-        /* Save game point */
-        localStorage.setItem("game-level", JSON.stringify(game.level + 1));
-
         /* Start animation */
         function uiGridAnimationEnd(event) {
             event.stopPropagation();
