@@ -25,21 +25,18 @@ function uiRestart() {
         }
     }
 
-    /* Refresh board */
-    uiGameRefresh(game);
+    /* Setup board and refresh UI */
+    uiBoardSetup(game.board);
 
     return false;
 }
 
 function uiMouseUp() {
-    document.getElementById("debug-text").innerHTML = "mouse up";
-
     clearTimeout(restartTimer);
     return false;
 }
 
 function uiMouseDown() {
-    document.getElementById("debug-text").innerHTML = "mouse down";
     restartTimer = setTimeout(
                         function() {
                             levelStart(game.level - 1);
@@ -53,7 +50,12 @@ function uiMouseDown() {
  *****************************************************************************/
 buttonUndo.addEventListener("click", uiUndo);
 
-buttonRestart.addEventListener("mouseup", uiMouseUp);
-buttonRestart.addEventListener("mousedown", uiMouseDown);
 buttonRestart.addEventListener("click", uiRestart);
+
+buttonRestart.addEventListener("mouseup",    uiMouseUp);
+buttonRestart.addEventListener("mouseleave", uiMouseUp);
+buttonRestart.addEventListener("mousedown",  uiMouseDown);
+
+buttonRestart.addEventListener("touchend",    uiMouseUp);
+buttonRestart.addEventListener("touchstart",  uiMouseDown);
 
