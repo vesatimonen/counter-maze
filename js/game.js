@@ -193,12 +193,12 @@ class Game {
         return undefined;
     }
 
-    getUndoMove() {
-        if (this.moveHistory.length == 0) {
+    getHistoryMove(index) {
+        if (this.moveHistory.length <= index) {
             return undefined;
         }
 
-        return this.moveHistory[this.moveHistory.length - 1];
+        return this.moveHistory[this.moveHistory.length - (index + 1)];
     }
 
     /* Check if move is legal */
@@ -216,7 +216,7 @@ class Game {
 
         /* Check if backward move */
         if (this.moveHistory.length > 0) {
-            let undoMove = this.getUndoMove();
+            let undoMove = this.getHistoryMove(0);
 
             if (undoMove.X == place.X && undoMove.Y == place.Y) {
                 return false;

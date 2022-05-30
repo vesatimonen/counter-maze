@@ -121,7 +121,7 @@
     z-index:        9;
 }
 
-.undo-frame {
+.trail-frame {
     position:       absolute;
     transform:      translate(-50%, -50%);
     opacity:        0.5;

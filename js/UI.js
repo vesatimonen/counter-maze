@@ -10,6 +10,7 @@ const gameGrid       = document.getElementById("game-grid");
 var   gameGridWidth = gameGrid.clientWidth;
 var   gameGridCellSize;
 
+const trailFrameCount = 3;
 
 /*****************************************************************************
  * Redraw buttons
@@ -47,22 +48,26 @@ function uiFrameRedraw(board) {
     frameImage.style.left   = board.frame.X * gameGridCellSize + gameGridCellSize / 2 + "px";
     frameImage.style.top    = board.frame.Y * gameGridCellSize + gameGridCellSize / 2 + "px";
 
-/*
-    let undoImage = document.getElementById("undo-frame");
-    let undoPlace = game.getUndoPlace();
-    if (undoPlace == undefined) {
-        undoImage.src          = "";
-    } else {
-        undoImage.src          = "images/Frame148.png";
-        undoImage.style.left   = undoPlace.X * gameGridCellSize + gameGridCellSize / 2 + "px";
-        undoImage.style.top    = undoPlace.Y * gameGridCellSize + gameGridCellSize / 2 + "px";
+    for (let i = 0; i < trailFrameCount; i++)  {
+        let undoImage = document.getElementById("trail-frame-" + i);
+        let undoMove = game.getHistoryMove(i);
+        if (undoMove == undefined) {
+            undoImage.src          = "";
+        } else {
+            undoImage.src           = "images/Frame148.png";
+            undoImage.style.left    = undoMove.X * gameGridCellSize + gameGridCellSize / 2 + "px";
+            undoImage.style.top     = undoMove.Y * gameGridCellSize + gameGridCellSize / 2 + "px";
+//            undoImage.style.height  = gameGridCellSize * Math.pow(0.7, i) + "px";
+            undoImage.style.opacity = Math.pow(0.5, i + 1);
 
-        undoImage.addEventListener("animationend", uiImageAnimationEnd);
-        undoImage.style.animation = "none";
-        undoImage.offsetHeight;
-        undoImage.style.animation = "image-appear-disabled 2s 1 forwards";
-    }
+/*
+            undoImage.addEventListener("animationend", uiImageAnimationEnd);
+            undoImage.style.animation = "none";
+            undoImage.offsetHeight;
+            undoImage.style.animation = "image-appear-disabled 2s 1 forwards";
 */
+        }
+    }
 }
 
 function uiImageAnimationEnd(event) {
@@ -163,15 +168,17 @@ function uiBoardSetup(board) {
     frameImage.style.height = gameGridCellSize * 1.25 + "px";
     gameGrid.appendChild(frameImage);
 
-    /* Create undo frame image */
-    let undoImage = document.createElement("img");
-    undoImage.className    = "undo-frame";
-    undoImage.id           = "undo-frame";
-    undoImage.src          = "";
-    undoImage.style.left   = board.frame.X * gameGridCellSize + gameGridCellSize / 2 + "px";
-    undoImage.style.top    = board.frame.Y * gameGridCellSize + gameGridCellSize / 2 + "px";
-    undoImage.style.height = gameGridCellSize * 0.5 + "px";
-    gameGrid.appendChild(undoImage);
+    /* Create trail frame images */
+    for (let i = 0; i < trailFrameCount; i++)  {
+        let undoImage = document.createElement("img");
+        undoImage.className    = "trail-frame";
+        undoImage.id           = "trail-frame-" + i;
+        undoImage.src          = "";
+        undoImage.style.left   = board.frame.X * gameGridCellSize + gameGridCellSize / 2 + "px";
+        undoImage.style.top    = board.frame.Y * gameGridCellSize + gameGridCellSize / 2 + "px";
+        undoImage.style.height = gameGridCellSize * 1.25 + "px";
+        gameGrid.appendChild(undoImage);
+    }
 
     /* Redraw board */
     uiBoardRedraw(board);
