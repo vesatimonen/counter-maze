@@ -59,6 +59,7 @@ function uiItemRedraw(board, x, y) {
 
     /* If value changes */
     if (counterImage.value != board.items[x][y]) {
+        /* Show new counter value */
         counterImage.value = board.items[x][y];
 
         /* Set new image */
@@ -74,14 +75,6 @@ function uiItemRedraw(board, x, y) {
             counterImage.style.animation = "image-appear 0.2s 1 forwards";
         } else {
             counterImage.style.animation = "image-appear-disabled 0.2s 1 forwards";
-        }
-    } else {
-        /* If undo place */
-        if (game.isUndoPlace(x, y) == true) {
-//            counterImage.addEventListener("animationend", uiImageAnimationEnd);
-//            counterImage.style.animation = "none";
-//            counterImage.offsetHeight; /* trigger reflow */
-//            counterImage.style.animation = "image-fade-disabled 0.2s 1 forwards";
         }
     }
 }

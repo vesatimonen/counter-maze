@@ -207,11 +207,6 @@
   100% {opacity: 0.6;}
 }
 
-@keyframes image-fade-disabled {
-  0%   {opacity: 1;}
-  100% {opacity: 0.6;}
-}
-
 .appear-animate {
     animation-name:             image-appear;
     animation-delay:            0s;
