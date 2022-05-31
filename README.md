@@ -7,7 +7,3 @@ Target of the puzzle is to decrement all the counters to zero by moving the curs
 <img src="images/capture.png" alt="Game example" />
 
 
-*Copyright 2022 Timo Jokitalo, Vesa Timonen*
-
-
-
