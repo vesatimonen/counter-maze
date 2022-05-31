@@ -4,7 +4,7 @@ Counter maze is a tiny multi-challenge puzzle made with HTML, CSS and native Jav
 
 Target of the puzzle is to decrement all the counters to zero moving the cursor.
 
-<img src="images/capture.png" alt="Game example"" />
+<img src="images/capture.png" alt="Game example" />
 
 
 *Copyright 2022 Timo Jokitalo, Vesa Timonen*
