@@ -6,4 +6,4 @@ Target of the puzzle is to decrement all the counters to zero by moving the curs
 
 <img src="images/capture.png" alt="Game example" />
 
-
+Play online https://vesatimonen.github.io/counter-maze/
