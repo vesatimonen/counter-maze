@@ -21,12 +21,11 @@ var randomSeed = 0;
 function randomOwnSeed(seed) {
     randomSeed = seed;
 }
-
 function randomOwn() {
-    var x = Math.sin(randomSeed) * 10000;
-    randomSeed++;
-    return x - Math.floor(x);
+    randomSeed = (randomSeed * 1103515245 + 12345) % 4294967296;
+    return ((randomSeed / 65536) % 32768) / 32768;
 }
+
 
 class Board {
     constructor() {
@@ -58,7 +57,7 @@ class Board {
             while (true) {
                 /* Check if timeout */
                 tryCount++;
-                if (tryCount > 1000) {
+                if (tryCount > 100) {
                     return false;
                 }
 
@@ -125,7 +124,7 @@ class Board {
         while (true) {
             tryCount++;
             if (tryCount > 1000) {
-                return false;
+                break;
             }
 
             this.width   = width;
@@ -135,8 +134,24 @@ class Board {
             this.frame.X = 0;
             this.frame.Y = 0;
 
+            for (let i = 0; i < this.width * this.height - tryCount/4; i++) {
+                let x = Math.floor(randomOwn() * this.width);
+                let y = Math.floor(randomOwn() * this.height);
+
+                this.items[x][y] = 10;
+            }
+
             if (this.randomize(moves) == true) {
                 break;
+            }
+        }
+
+        /* Take away illegal values */
+        for (let x = 0; x < this.width; x++) {
+            for (let y = 0; y < this.height; y++) {
+                if (this.items[x][y] > 9 || this.items[x][y] < 0) {
+                    this.items[x][y] = 0;
+                }
             }
         }
     }

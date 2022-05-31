@@ -11,6 +11,8 @@ function uiUndo() {
         return false;
     }
 
+//levelStart(game.level + 1);
+
     /* Refresh board */
     uiGameRefresh(game);
 
