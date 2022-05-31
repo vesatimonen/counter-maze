@@ -132,7 +132,7 @@ function uiMoveContinue(event) {
         }
 
         /* Start frame movement if threshold exeeced */
-        let startThreshold = 0.4;
+        let startThreshold = 0.2;
         if (Math.abs(frameX - frameStartX) > gameGridCellSize * startThreshold ||
             Math.abs(frameY - frameStartY) > gameGridCellSize * startThreshold) {
             /* Move frame */
