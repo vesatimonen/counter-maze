@@ -48,7 +48,7 @@ function uiMouseDown() {
                                 levelStart(game.level - 1);
                             }
                         },
-                        1000);
+                        500);
     return false;
 }
 

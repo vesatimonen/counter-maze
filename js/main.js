@@ -61,14 +61,6 @@ var gameLevels = [
     {width: 5, height: 6, moves: 46},
 
     {width: 5, height: 7, moves: 48},
-    {width: 5, height: 7, moves: 50},
-    {width: 5, height: 7, moves: 52},
-    {width: 5, height: 7, moves: 54},
-    {width: 5, height: 7, moves: 56},
-    {width: 5, height: 7, moves: 58},
-    {width: 5, height: 7, moves: 60},
-    {width: 5, height: 7, moves: 62},
-    {width: 5, height: 7, moves: 64},
 ];
 
 /*****************************************************************************
